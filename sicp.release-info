@@ -2,3 +2,5 @@
 (uri targz "https://github.com/klutometis/sicp-chicken/tarball/{egg-release}")
 (release "0.0.1")
 (release "0.0.2")
+(release "0.0.3")
+(release "0.1")

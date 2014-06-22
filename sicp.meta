@@ -1,0 +1,7 @@
+((synopsis "Support for SICP")
+ (author "Peter Danenberg")
+ (category data)
+ (license "BSD")
+ (depends setup-helper)
+ (test-depends)
+ (foreign-depends))

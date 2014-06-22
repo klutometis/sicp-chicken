@@ -1,0 +1,5 @@
+(use setup-helper-mod)
+
+(setup-shared-extension-module
+ 'sicp
+ (extension-version "0.0"))

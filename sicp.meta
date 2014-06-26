@@ -2,7 +2,6 @@
  (author "Peter Danenberg")
  (category data)
  (license "BSD")
- (depends setup-helper
-          srfi-18)
+ (depends setup-helper)
  (test-depends)
  (foreign-depends))

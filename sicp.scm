@@ -1,5 +1,6 @@
 (module sicp
-  (average
+  (accumulate
+   average
    dec
    default-timeout
    epsilon
@@ -48,4 +49,10 @@
          (timeout-value?
           (thread-join! thread timeout timeout-value)))))))
 
-  (define nil '()))
+  (define nil '())
+
+  (define (accumulate op initial sequence)
+    (if (null? sequence)
+        initial
+        (op (car sequence)
+            (accumulate op initial (cdr sequence))))))

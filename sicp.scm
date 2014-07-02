@@ -5,6 +5,7 @@
    default-timeout
    enumerate-interval
    epsilon
+   flatmap
    inc
    good-enough?
    nil
@@ -61,4 +62,7 @@
   (define (enumerate-interval low high)
     (if (> low high)
         nil
-        (cons low (enumerate-interval (+ low 1) high)))))
+        (cons low (enumerate-interval (+ low 1) high))))
+
+  (define (flatmap proc seq)
+    (accumulate append nil (map proc seq))))

@@ -3,6 +3,7 @@
    average
    dec
    default-timeout
+   enumerate-interval
    epsilon
    inc
    good-enough?
@@ -55,4 +56,9 @@
     (if (null? sequence)
         initial
         (op (car sequence)
-            (accumulate op initial (cdr sequence))))))
+            (accumulate op initial (cdr sequence)))))
+
+  (define (enumerate-interval low high)
+    (if (> low high)
+        nil
+        (cons low (enumerate-interval (+ low 1) high)))))

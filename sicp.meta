@@ -2,6 +2,8 @@
  (author "Peter Danenberg")
  (category data)
  (license "BSD")
- (depends setup-helper)
- (test-depends)
+ (depends htmlprag
+          setup-helper
+          token-substitution)
+ (test-depends test)
  (foreign-depends))

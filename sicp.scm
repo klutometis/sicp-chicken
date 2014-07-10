@@ -1,22 +1,60 @@
 (module sicp
   (accumulate
+   add-vect
    average
+   below
+   beside
+   corner-split
    dec
+   default-frame
+   default-height
+   default-width
    default-timeout
+   draw-painter-as-svg
+   draw-line
+   edge1-frame
+   edge2-frame
+   end-segment
    enumerate-interval
    epsilon
    fast-prime?
    flatmap
+   flip-horiz
+   flip-vert
+   frame-coord-map
    inc
    good-enough?
+   make-frame
+   make-segment
+   make-vect
    nil
+   origin-frame
    prime?
+   right-split
+   rotate90
+   rotate180
+   rotate270
+   scale-vect
+   segments->painter
+   shrink-to-upper-right
    square
+   square-limit
+   start-segment
+   sub-vect
    terminates?
    timeout-value?
-   xor)
-  (import chicken extras scheme)
-  (use srfi-18)
+   transform-painter
+   up-split
+   write-painter-to-svg
+   xcor-vect
+   xor
+   ycor-vect)
+  (import chicken data-structures extras scheme)
+  (use (only htmlprag write-shtml-as-html)
+       srfi-18
+       token-substitution)
+
+  (include "picture.scm")
 
   (define inc add1)
 

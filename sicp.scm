@@ -1,6 +1,9 @@
 (module sicp
-  (accumulate
+  (=number?
+   accumulate
    add-vect
+   addend
+   augend
    average
    below
    beside
@@ -10,6 +13,7 @@
    default-height
    default-width
    default-timeout
+   deriv
    draw-painter-as-svg
    draw-line
    edge1-frame
@@ -25,16 +29,22 @@
    inc
    good-enough?
    make-frame
+   make-product
+   make-sum
    make-segment
    make-vect
+   multiplicand
+   multiplier
    nil
    origin-frame
    outline
    prime?
+   product?
    right-split
    rotate90
    rotate180
    rotate270
+   same-variable?
    scale-vect
    segments->painter
    shrink-to-upper-right
@@ -42,10 +52,12 @@
    square-limit
    start-segment
    sub-vect
+   sum?
    terminates?
    timeout-value?
    transform-painter
    up-split
+   variable?
    write-painter-to-svg
    xcor-vect
    xor
@@ -55,6 +67,7 @@
        srfi-18
        token-substitution)
 
+  (include "differentiation.scm")
   (include "picture.scm")
 
   (define inc add1)

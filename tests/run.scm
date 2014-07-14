@@ -8,3 +8,6 @@
      (draw-painter-as-svg (segments->painter
                            (list (make-segment (make-vect 0.0 1.0)
                                                (make-vect 1.0 0.0))))))))
+
+(test 1 (deriv '(+ x 3) 'x))
+(test 'y (deriv '(* x y) 'x))

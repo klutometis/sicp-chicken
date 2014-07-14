@@ -195,4 +195,12 @@
 
 (define (write-painter-to-svg painter file)
   (with-output-to-file file
-      (lambda () (draw-painter-as-svg painter))))
+    (lambda () (draw-painter-as-svg painter))))
+
+;; Define a basic shape we can test against.
+(define outline
+  (list
+   (make-segment (make-vect 0 0) (make-vect 0 1))
+   (make-segment (make-vect 0 1) (make-vect 1 1))
+   (make-segment (make-vect 1 1) (make-vect 1 0))
+   (make-segment (make-vect 1 0) (make-vect 0 0))))

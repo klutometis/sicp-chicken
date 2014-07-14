@@ -29,6 +29,7 @@
    make-vect
    nil
    origin-frame
+   outline
    prime?
    right-split
    rotate90

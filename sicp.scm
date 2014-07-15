@@ -9,13 +9,9 @@
    beside
    corner-split
    dec
-   default-frame
-   default-height
-   default-width
    default-timeout
    deriv
    draw-painter-as-svg
-   draw-line
    edge1-frame
    edge2-frame
    end-segment
@@ -26,6 +22,10 @@
    flip-horiz
    flip-vert
    frame-coord-map
+   image->painter
+   image-frame
+   image-height
+   image-width
    inc
    good-enough?
    make-frame

@@ -130,68 +130,81 @@
     (let ((half (beside (flip-horiz quarter) quarter)))
       (below (flip-vert half) half))))
 
-(define (format-drawer v1 v2)
-  (format #t "~a -> ~a~%" v1 v2))
+;; Call it svg-width or image-width?
+(define image-width (make-parameter 256))
 
-(define (make-accumulate-drawer)
-  (let ((lines '()))
-    (case-lambda
-     (() lines)
-     ((start end) (set! lines (cons (make-segment start end) lines))))))
+(define image-height (make-parameter 256))
 
-(define draw-line
-  (make-parameter format-drawer))
-
-(define default-width (make-parameter 256))
-
-(define default-height (make-parameter 256))
-
-(define default-frame
+(define image-frame
   (make-parameter (lambda () (make-frame (make-vect 0 0)
-                                    (make-vect (default-width) 0)
-                                    (make-vect 0 (default-height))))))
+                                    (make-vect (image-width) 0)
+                                    (make-vect 0 (image-height))))))
 
 (define svg-document
   `(svg (@ (xmlns "http://www.w3.org/2000/svg")
+           (xmlns:xlink "http://www.w3.org/1999/xlink")
            (height (%data height))
            (width (%data width)))
         (g (@ (stroke "black"))
            (%data body))))
 
-(define (line->svg line)
-  (let ((start (start-segment line))
-        (end (end-segment line)))
-    `(line (@ (x1 ,(number->string (xcor-vect start)))
-              (y1 ,(number->string (ycor-vect start)))
-              (x2 ,(number->string (xcor-vect end)))
-              (y2 ,(number->string (ycor-vect end)))))))
-
-(define display-lines-as-svg
-  (case-lambda ((lines)
-           (display-lines-as-svg lines (default-width) (default-height)))
-          ((lines width height)
+(define display-features-as-svg
+  (case-lambda ((features)
+           (display-features-as-svg features (image-width) (image-height)))
+          ((features width height)
            (write-shtml-as-html
             (substitute-tokens svg-document
                                `((height . ,(number->string height))
                                  (width . ,(number->string width))
-                                 (body ,(map line->svg lines))))))))
+                                 (body ,features)))))))
+
+(define (make-accumulator)
+  (let ((features '()))
+    (case-lambda
+     (() features)
+     ((feature)
+      (set! features (cons feature features))))))
+
+(define accumulator (make-parameter (make-accumulator)))
+
+(define (line->svg start end)
+  `(line (@ (x1 ,(number->string (xcor-vect start)))
+            (y1 ,(number->string (ycor-vect start)))
+            (x2 ,(number->string (xcor-vect end)))
+            (y2 ,(number->string (ycor-vect end))))))
 
 (define (segments->painter segment-list)
   (lambda (frame)
     (for-each
-        (lambda (segment)
-          ((draw-line)
-           ((frame-coord-map frame)
-            (start-segment segment))
-           ((frame-coord-map frame)
-            (end-segment segment))))
+     (lambda (segment)
+       ((accumulator)
+        (line->svg
+         ((frame-coord-map frame) (start-segment segment))
+         ((frame-coord-map frame) (end-segment segment)))))
       segment-list)))
 
+(define (image->painter image)
+  (lambda (frame)
+    (let ((origin (origin-frame frame))
+          (edge1 (edge1-frame frame))
+          (edge2 (edge2-frame frame)))
+      (let ((a (car edge1))
+            (b (cdr edge1))
+            (c (car edge2))
+            (d (cdr edge2))
+            (e (car origin))
+            (f (cdr origin)))
+        ((accumulator)
+         `(g (@ (transform
+                 ,(format "matrix(~a, ~a, ~a, ~a, ~a, ~a)" a b c d e f)))
+             (image (@ (xlink:href ,image)
+                       (width "1")
+                       (height "1")))))))))
+
 (define (draw-painter-as-svg painter)
-  (let ((drawer (make-accumulate-drawer)))
-    (parameterize ((draw-line drawer))
-      (painter ((default-frame)))
-      (display-lines-as-svg (drawer)))))
+  (parameterize ((accumulator (make-accumulator)))
+    (painter ((image-frame)))
+    (display-features-as-svg ((accumulator)))))
 
 (define (write-painter-to-svg painter file)
   (with-output-to-file file
@@ -204,3 +217,14 @@
    (make-segment (make-vect 0 1) (make-vect 1 1))
    (make-segment (make-vect 1 1) (make-vect 1 0))
    (make-segment (make-vect 1 0) (make-vect 0 0))))
+
+(define (corner-split painter n)
+  (if (= n 0)
+      painter
+      (let ((up (up-split painter (- n 1)))
+            (right (right-split painter (- n 1))))
+        (let ((top-left up)
+              (bottom-right right)
+              (corner (corner-split painter (- n 1))))
+          (beside (below painter top-left)
+                  (below bottom-right corner))))))

@@ -59,11 +59,14 @@
    up-split
    variable?
    write-painter-to-svg
+   write-painter-to-png
    xcor-vect
    xor
    ycor-vect)
   (import chicken data-structures extras scheme)
-  (use (only htmlprag write-shtml-as-html)
+  (use files
+       (only htmlprag write-shtml-as-html)
+       shell
        srfi-18
        token-substitution)
 

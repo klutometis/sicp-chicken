@@ -206,9 +206,15 @@
     (painter ((image-frame)))
     (display-features-as-svg ((accumulator)))))
 
-(define (write-painter-to-svg painter file)
-  (with-output-to-file file
+(define (write-painter-to-svg painter svg)
+  (with-output-to-file svg
     (lambda () (draw-painter-as-svg painter))))
+
+(define (write-painter-to-png painter png)
+  (let ((svg (create-temporary-file ".svg")))
+    (with-output-to-file svg
+      (lambda () (draw-painter-as-svg painter)))
+    (run (inkscape -z -e ,png ,svg))))
 
 ;; Define a basic shape we can test against.
 (define outline
@@ -217,14 +223,3 @@
    (make-segment (make-vect 0 1) (make-vect 1 1))
    (make-segment (make-vect 1 1) (make-vect 1 0))
    (make-segment (make-vect 1 0) (make-vect 0 0))))
-
-(define (corner-split painter n)
-  (if (= n 0)
-      painter
-      (let ((up (up-split painter (- n 1)))
-            (right (right-split painter (- n 1))))
-        (let ((top-left up)
-              (bottom-right right)
-              (corner (corner-split painter (- n 1))))
-          (beside (below painter top-left)
-                  (below bottom-right corner))))))

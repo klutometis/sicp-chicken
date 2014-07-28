@@ -4,6 +4,7 @@
  (license "BSD")
  (depends htmlprag
           setup-helper
+          shell
           token-substitution)
  (test-depends test)
  (foreign-depends))

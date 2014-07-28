@@ -2,4 +2,4 @@
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.4.2"))
+ (extension-version "0.5"))

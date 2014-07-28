@@ -3,6 +3,7 @@
    accumulate
    add-vect
    addend
+   adjoin-set
    augend
    average
    below
@@ -14,6 +15,7 @@
    draw-painter-as-svg
    edge1-frame
    edge2-frame
+   element-of-set?
    end-segment
    enumerate-interval
    epsilon
@@ -27,6 +29,7 @@
    image-height
    image-width
    inc
+   intersection-set
    good-enough?
    make-frame
    make-product
@@ -72,6 +75,7 @@
 
   (include "differentiation.scm")
   (include "picture.scm")
+  (include "sets.scm")
 
   (define inc add1)
 

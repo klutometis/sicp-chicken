@@ -8,14 +8,18 @@
    average
    below
    beside
+   choose-branch
    corner-split
    dec
+   decode
    default-timeout
    deriv
    draw-painter-as-svg
    edge1-frame
    edge2-frame
    element-of-set?
+   encode
+   encode-symbol
    end-segment
    enumerate-interval
    epsilon
@@ -24,6 +28,7 @@
    flip-horiz
    flip-vert
    frame-coord-map
+   huffman-adjoin-set
    image->painter
    image-frame
    image-height
@@ -31,7 +36,12 @@
    inc
    intersection-set
    good-enough?
+   leaf?
+   left-branch
+   make-code-tree
    make-frame
+   make-leaf
+   make-leaf-set
    make-product
    make-sum
    make-segment
@@ -43,6 +53,7 @@
    outline
    prime?
    product?
+   right-branch
    right-split
    rotate90
    rotate180
@@ -56,11 +67,15 @@
    start-segment
    sub-vect
    sum?
+   symbol-leaf
+   symbols
    terminates?
    timeout-value?
    transform-painter
    up-split
    variable?
+   weight
+   weight-leaf
    write-painter-to-svg
    write-painter-to-png
    xcor-vect
@@ -74,6 +89,7 @@
        token-substitution)
 
   (include "differentiation.scm")
+  (include "huffman.scm")
   (include "picture.scm")
   (include "sets.scm")
 

@@ -1,1 +1,6 @@
 * TODO Multiple modules for e.g. {un,}ordered sets.
+  We’ve already gotten into a situation with e.g. =adjoin-set= that
+  we’ve had to create a =huffman-adjoin-set=.
+
+  Huffman also clashes with tree-sets over the definition of
+  =left-branch= and =right-branch=, apparently.

@@ -4,16 +4,20 @@
    add-vect
    addend
    adjoin-set
+   apply-generic
+   attach-tag
    augend
    average
    below
    beside
    choose-branch
+   contents
    corner-split
    dec
    decode
    default-timeout
    deriv
+   dispatch-table
    draw-painter-as-svg
    edge1-frame
    edge2-frame
@@ -28,6 +32,7 @@
    flip-horiz
    flip-vert
    frame-coord-map
+   get
    huffman-adjoin-set
    image->painter
    image-frame
@@ -53,6 +58,7 @@
    outline
    prime?
    product?
+   put
    right-branch
    right-split
    rotate90
@@ -72,6 +78,7 @@
    terminates?
    timeout-value?
    transform-painter
+   type-tag
    up-split
    variable?
    weight
@@ -86,8 +93,10 @@
        (only htmlprag write-shtml-as-html)
        shell
        srfi-18
+       srfi-69
        token-substitution)
 
+  (include "abstract-data.scm")
   (include "differentiation.scm")
   (include "huffman.scm")
   (include "picture.scm")

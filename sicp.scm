@@ -1,9 +1,11 @@
 (module sicp
   (=number?
    accumulate
+   add
    add-vect
    addend
    adjoin-set
+   angle
    apply-generic
    attach-tag
    augend
@@ -18,6 +20,7 @@
    default-timeout
    deriv
    dispatch-table
+   div
    draw-painter-as-svg
    edge1-frame
    edge2-frame
@@ -38,19 +41,33 @@
    image-frame
    image-height
    image-width
+   imag-part
    inc
+   install-complex-package
+   install-polar-package
+   install-rational-package
+   install-rectangular-package   
+   install-scheme-number-package
    intersection-set
    good-enough?
    leaf?
    left-branch
+   magnitude
    make-code-tree
+   make-complex-from-mag-ang
+   make-complex-from-real-imag
+   make-from-mag-ang
+   make-from-real-imag
    make-frame
    make-leaf
    make-leaf-set
    make-product
+   make-rational
+   make-scheme-number
    make-sum
    make-segment
    make-vect
+   mul
    multiplicand
    multiplier
    nil
@@ -59,6 +76,7 @@
    prime?
    product?
    put
+   real-part
    right-branch
    right-split
    rotate90
@@ -71,6 +89,7 @@
    square
    square-limit
    start-segment
+   sub
    sub-vect
    sum?
    symbol-leaf
@@ -97,6 +116,7 @@
        token-substitution)
 
   (include "abstract-data.scm")
+  (include "arithmetic.scm")
   (include "differentiation.scm")
   (include "huffman.scm")
   (include "picture.scm")

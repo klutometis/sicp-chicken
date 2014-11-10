@@ -52,7 +52,12 @@
        (lambda (x y) (tag (div-rat x y))))
   (put 'make 'rational
        (lambda (n d) (tag (make-rat n d))))
+  (put 'numer '(rational) numer)
+  (put 'denom '(rational) denom)
   'done)
+
+(define (numer r) (apply-generic 'numer r))
+(define (denom r) (apply-generic 'denom r))
 
 (define (make-rational n d)
   ((get 'make 'rational) n d))

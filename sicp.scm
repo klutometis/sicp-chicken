@@ -2,9 +2,13 @@
   (=number?
    accumulate
    add
+   add-action!
    add-vect
    addend
    adjoin-set
+   after-delay
+   and-gate
+   and-gate-delay
    angle
    apply-generic
    attach-tag
@@ -18,6 +22,7 @@
    dec
    decode
    default-timeout
+   delete-queue!
    deriv
    dispatch-table
    div
@@ -25,6 +30,7 @@
    edge1-frame
    edge2-frame
    element-of-set?
+   empty-queue?
    encode
    encode-symbol
    end-segment
@@ -35,7 +41,12 @@
    flip-horiz
    flip-vert
    frame-coord-map
+   front-ptr
+   front-queue
+   full-adder
    get
+   get-signal
+   half-adder
    huffman-adjoin-set
    image->painter
    image-frame
@@ -43,16 +54,21 @@
    image-width
    imag-part
    inc
+   insert-queue!
    install-complex-package
    install-polar-package
    install-rational-package
    install-rectangular-package   
    install-scheme-number-package
    intersection-set
+   inverter
+   inverter-delay
    good-enough?
    leaf?
    left-branch
+   logical-not
    magnitude
+   make-agenda
    make-code-tree
    make-complex-from-mag-ang
    make-complex-from-real-imag
@@ -62,21 +78,28 @@
    make-leaf
    make-leaf-set
    make-product
+   make-queue
    make-rational
    make-scheme-number
    make-sum
    make-segment
    make-vect
+   make-wire
    mul
    multiplicand
    multiplier
    nil
+   or-gate
+   or-gate-delay
    origin-frame
    outline
    prime?
+   probe
    product?
+   propagate
    put
    real-part
+   rear-ptr
    right-branch
    right-split
    rotate90
@@ -85,6 +108,9 @@
    same-variable?
    scale-vect
    segments->painter
+   set-front-ptr!
+   set-rear-ptr!
+   set-signal!
    shrink-to-upper-right
    square
    square-limit
@@ -95,6 +121,7 @@
    symbol-leaf
    symbols
    terminates?
+   the-agenda
    timeout-value?
    transform-painter
    type-tag
@@ -121,6 +148,8 @@
   (include "huffman.scm")
   (include "picture.scm")
   (include "sets.scm")
+  (include "queue.scm")
+  (include "circuits.scm")
 
   (define inc add1)
 

@@ -1,4 +1,9 @@
+@(heading "SICP")
+
 (module sicp
+  @("SICP is a grab-bag of different procedures from sections 1
+through 3.3.4, before we started modularizing them (starting from
+3.3.5: Constraints).")
   (=number?
    accumulate
    add

@@ -1,4 +1,7 @@
+@(heading "sicp-constraints")
+
 (module sicp-constraints
+  @("Constraint satisfaction from section 3.3.5")
   (adder
    connect
    constant

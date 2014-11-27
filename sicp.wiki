@@ -1,0 +1,392 @@
+== sicp
+
+Support for SICP
+[[toc:]]
+=== SICP
+==== {{sicp}}
+'''[module]''' {{sicp}}
+
+SICP is a grab-bag of different procedures from sections 1
+through 3.3.4, before we started modularizing them (starting from
+3.3.5: Constraints).
+* [[#=number?]]
+* [[#accumulate]]
+* [[#add]]
+* [[#add-action!]]
+* [[#add-to-agenda!]]
+* [[#add-vect]]
+* [[#addend]]
+* [[#adjoin-set]]
+* [[#after-delay]]
+* [[#and-gate]]
+* [[#and-gate-delay]]
+* [[#angle]]
+* [[#apply-generic]]
+* [[#attach-tag]]
+* [[#augend]]
+* [[#average]]
+* [[#below]]
+* [[#beside]]
+* [[#call-each]]
+* [[#choose-branch]]
+* [[#contents]]
+* [[#corner-split]]
+* [[#dec]]
+* [[#decode]]
+* [[#default-timeout]]
+* [[#delete-queue!]]
+* [[#deriv]]
+* [[#dispatch-table]]
+* [[#div]]
+* [[#draw-painter-as-svg]]
+* [[#edge1-frame]]
+* [[#edge2-frame]]
+* [[#element-of-set?]]
+* [[#empty-queue?]]
+* [[#encode]]
+* [[#encode-symbol]]
+* [[#end-segment]]
+* [[#enumerate-interval]]
+* [[#epsilon]]
+* [[#fast-prime?]]
+* [[#first-agenda-item]]
+* [[#flatmap]]
+* [[#flip-horiz]]
+* [[#flip-vert]]
+* [[#frame-coord-map]]
+* [[#front-ptr]]
+* [[#front-queue]]
+* [[#full-adder]]
+* [[#get]]
+* [[#get-signal]]
+* [[#half-adder]]
+* [[#huffman-adjoin-set]]
+* [[#image->painter]]
+* [[#image-frame]]
+* [[#image-height]]
+* [[#image-width]]
+* [[#imag-part]]
+* [[#inc]]
+* [[#insert-queue!]]
+* [[#install-complex-package]]
+* [[#install-polar-package]]
+* [[#install-rational-package]]
+* [[#install-rectangular-package]]
+* [[#install-scheme-number-package]]
+* [[#intersection-set]]
+* [[#inverter]]
+* [[#inverter-delay]]
+* [[#good-enough?]]
+* [[#leaf?]]
+* [[#left-branch]]
+* [[#logical-not]]
+* [[#magnitude]]
+* [[#make-agenda]]
+* [[#make-code-tree]]
+* [[#make-complex-from-mag-ang]]
+* [[#make-complex-from-real-imag]]
+* [[#make-from-mag-ang]]
+* [[#make-from-real-imag]]
+* [[#make-frame]]
+* [[#make-leaf]]
+* [[#make-leaf-set]]
+* [[#make-product]]
+* [[#make-queue]]
+* [[#make-rational]]
+* [[#make-scheme-number]]
+* [[#make-sum]]
+* [[#make-segment]]
+* [[#make-vect]]
+* [[#make-wire]]
+* [[#mul]]
+* [[#multiplicand]]
+* [[#multiplier]]
+* [[#nil]]
+* [[#or-gate]]
+* [[#or-gate-delay]]
+* [[#origin-frame]]
+* [[#outline]]
+* [[#prime?]]
+* [[#probe]]
+* [[#product?]]
+* [[#propagate]]
+* [[#put]]
+* [[#real-part]]
+* [[#rear-ptr]]
+* [[#remove-first-agenda-item!]]
+* [[#right-branch]]
+* [[#right-split]]
+* [[#rotate90]]
+* [[#rotate180]]
+* [[#rotate270]]
+* [[#same-variable?]]
+* [[#scale-vect]]
+* [[#segments->painter]]
+* [[#set-front-ptr!]]
+* [[#set-rear-ptr!]]
+* [[#set-signal!]]
+* [[#shrink-to-upper-right]]
+* [[#square]]
+* [[#square-limit]]
+* [[#start-segment]]
+* [[#sub]]
+* [[#sub-vect]]
+* [[#sum?]]
+* [[#symbol-leaf]]
+* [[#symbols]]
+* [[#terminates?]]
+* [[#the-agenda]]
+* [[#timeout-value?]]
+* [[#transform-painter]]
+* [[#type-tag]]
+* [[#up-split]]
+* [[#variable?]]
+* [[#weight]]
+* [[#weight-leaf]]
+* [[#write-painter-to-svg]]
+* [[#write-painter-to-png]]
+* [[#xcor-vect]]
+* [[#xor]]
+* [[#ycor-vect]]
+==== {{has-value?}}
+<procedure>(has-value? connector) → boolean</procedure>
+Does this connector have a value?
+; connector : The connector to test
+<enscript highlight="scheme">(define (has-value? connector) (connector 'has-value?))
+</enscript>
+==== {{get-value}}
+<procedure>(get-value connector) → object</procedure>
+Get this connector's value.
+; connector : The connector to test
+<enscript highlight="scheme">(define (get-value connector) (connector 'value))
+</enscript>
+==== {{set-value!}}
+<procedure>(set-value! connector new-value informant) → unspecified</procedure>
+Set this connector's value.
+; connector : The connector to set
+<enscript highlight="scheme">(define (set-value! connector new-value informant)
+  ((connector 'set-value!) new-value informant))
+</enscript>
+==== {{forget-value!}}
+<procedure>(forget-value! connector retractor) → unspecified</procedure>
+Forget this connector's value.
+; connector : The connector to forget
+<enscript highlight="scheme">(define (forget-value! connector retractor) ((connector 'forget) retractor))
+</enscript>
+==== {{connect}}
+<procedure>(connect connector new-constraint) → unspecified</procedure>
+Connect a connector to a new constraint.
+; connector : The connector to connect
+; new-constraint : The constraint to add
+<enscript highlight="scheme">(define (connect connector new-constraint)
+  ((connector 'connect) new-constraint))
+</enscript>
+==== {{inform-about-value}}
+<procedure>(inform-about-value constraint) → unspecified</procedure>
+Inform the constraint about a new value
+; constraint : The constraint to inform
+<enscript highlight="scheme">(define (inform-about-value constraint) (constraint 'I-have-a-value))
+</enscript>
+==== {{inform-about-no-value}}
+<procedure>(inform-about-no-value constraint) → unspecified</procedure>
+Inform the constraint about forgetting
+; constraint : The consraint to inform
+<enscript highlight="scheme">(define (inform-about-no-value constraint) (constraint 'I-lost-my-value))
+</enscript>
+==== {{adder}}
+<procedure>(adder a1 a2 sum) → constraint</procedure>
+A constraint that adds two numbers
+; a1 : Addend
+; a2 : Augend
+; sum : Sum
+<enscript highlight="scheme">(define (adder a1 a2 sum)
+  (define (process-new-value)
+    (cond ((and (has-value? a1) (has-value? a2))
+           (set-value! sum (+ (get-value a1) (get-value a2)) me))
+          ((and (has-value? a1) (has-value? sum))
+           (set-value! a2 (- (get-value sum) (get-value a1)) me))
+          ((and (has-value? a2) (has-value? sum))
+           (set-value! a1 (- (get-value sum) (get-value a2)) me))))
+  (define (process-forget-value)
+    (forget-value! sum me)
+    (forget-value! a1 me)
+    (forget-value! a2 me)
+    (process-new-value))
+  (define (me request)
+    (case request
+      ((I-have-a-value) (process-new-value))
+      ((I-lost-my-value) (process-forget-value))
+      (else (error "Unknown request: ADDER" request))))
+  (connect a1 me)
+  (connect a2 me)
+  (connect sum me)
+  me)
+</enscript>
+==== {{multiplier}}
+<procedure>(multiplier m1 m2 product) → constraint</procedure>
+A constraint that multiplies two numbers
+; a1 : Multiplier
+; a2 : Multiplicand
+; sum : Product
+<enscript highlight="scheme">(define (multiplier m1 m2 product)
+  (define (process-new-value)
+    (cond ((or (and (has-value? m1) (= (get-value m1) 0))
+               (and (has-value? m2) (= (get-value m2) 0)))
+           (set-value! product 0 me))
+          ((and (has-value? m1) (has-value? m2))
+           (set-value! product (* (get-value m1) (get-value m2)) me))
+          ((and (has-value? product) (has-value? m1))
+           (set-value! m2 (/ (get-value product) (get-value m1)) me))
+          ((and (has-value? product) (has-value? m2))
+           (set-value! m1 (/ (get-value product) (get-value m2)) me))))
+  (define (process-forget-value)
+    (forget-value! product me)
+    (forget-value! m1 me)
+    (forget-value! m2 me)
+    (process-new-value))
+  (define (me request)
+    (case request
+      ((I-have-a-value) (process-new-value))
+      ((I-lost-my-value) (process-forget-value))
+      (else (error "Unknown request: MULTIPLIER" request))))
+  (connect m1 me)
+  (connect m2 me)
+  (connect product me)
+  me)
+</enscript>
+==== {{constant}}
+<procedure>(constant value connector) → constraint</procedure>
+A constant constraint
+; value : The value to constantly be
+; connector : The relevant connector
+<enscript highlight="scheme">(define (constant value connector)
+  (define (me request) (error "Unknown request: CONSTANT" request))
+  (connect connector me)
+  (set-value! connector value me)
+  me)
+</enscript>
+==== {{probe}}
+<procedure>(probe name connector) → constraint</procedure>
+Probe a connector and inform upon value-change
+; name : Name of the connector
+; connector : The connector to probe
+<enscript highlight="scheme">(define (probe name connector)
+  (define (print-probe value) (format #t "Probe: ~a = ~a~%" name value))
+  (define (process-new-value) (print-probe (get-value connector)))
+  (define (process-forget-value) (print-probe "?"))
+  (define (me request)
+    (case request
+      ((I-have-a-value) (process-new-value))
+      ((I-lost-my-value) (process-forget-value))
+      (else (error "Unknown request: PROBE" request))))
+  (connect connector me)
+  me)
+</enscript>
+==== {{make-connector}}
+<procedure>(make-connector) → connector</procedure>
+Make a connector.
+
+<enscript highlight="scheme">(define (make-connector)
+  (let ((value #f) (informant #f) (constraints '()))
+    (define (set-my-value newval setter)
+      (cond ((not (has-value? me))
+             (set! value newval)
+             (set! informant setter)
+             (for-each-except setter inform-about-value constraints))
+            ((not (= value newval))
+             (error "Contradiction" (list value newval)))
+            (else 'ignored)))
+    (define (forget-my-value retractor)
+      (if (eq? retractor informant)
+        (begin
+          (set! informant #f)
+          (for-each-except retractor inform-about-no-value constraints))
+        'ignored))
+    (define (connect new-constraint)
+      (if (not (memq new-constraint constraints))
+        (set! constraints (cons new-constraint constraints)))
+      (if (has-value? me) (inform-about-value new-constraint))
+      'done)
+    (define (me request)
+      (case request
+        ((has-value?) (and informant #t))
+        ((value) value)
+        ((set-value!) set-my-value)
+        ((forget) forget-my-value)
+        ((connect) connect)
+        (else (error "Unknown operation: CONNECTOR" request))))
+    me))
+</enscript>
+==== {{for-each-except}}
+<procedure>(for-each-except exception procedure list) → unspecified</procedure>
+Apply a procedure to every item in ''list'' except ones {{eq?}}
+to ''exception''.
+; exception : An element not to apply ''procedure'' to
+; procedure : The procedure to apply
+; list : The list to iterate over
+<enscript highlight="scheme">(define (for-each-except exception procedure list)
+  (define (loop items)
+    (cond ((null? items) 'done)
+          ((eq? (car items) exception) (loop (cdr items)))
+          (else (procedure (car items)) (loop (cdr items)))))
+  (loop list))
+</enscript>
+=== sicp-constraints
+==== {{sicp-constraints}}
+'''[module]''' {{sicp-constraints}}
+
+Constraint satisfaction from section 3.3.5
+* [[#adder]]
+* [[#connect]]
+* [[#constant]]
+* [[#for-each-except]]
+* [[#forget-value!]]
+* [[#get-value]]
+* [[#has-value?]]
+* [[#set-value!]]
+* [[#inform-about-no-value]]
+* [[#inform-about-value]]
+* [[#make-connector]]
+* [[#multiplier]]
+* [[#probe]]
+=== About this egg
+
+==== Author
+
+[[/users/(anonymous)|Peter Danenberg]]
+
+==== License
+BSD
+==== Dependencies
+* [[cock]]
+* [[htmlprag]]
+* [[setup-helper]]
+* [[setup-helper-cock]]
+* [[shell]]
+* [[token-substitution]]
+
+==== Versions
+; 0.0 : Initial commit
+; 0.0.1 : Add release-info.
+; 0.0.2 : Change the repo and uri.
+; 0.0.3 : Remove 0.0.
+; 0.1 : Some actual code.
+; 0.1.1 : Nil, etc.
+; 0.1.2 : Remove SRFI-18.
+; 0.1.3 : Add accumulate.
+; 0.1.4 : Enumerate interval
+; 0.1.5 : Add flatmap.
+; 0.1.6 : Add `prime?'.
+; 0.2 : Add picture language.
+; 0.3 : Add the outline-painter.
+; 0.4 : Add differentation.
+; 0.4.1 : Add images to picture-language.
+; 0.4.2 : Add write-painter-to-png.
+; 0.5 : Add sets.
+; 0.5.1 : Add Huffman trees.
+; 0.5.2 : Add abstract data.
+; 0.5.3 : Add arithmetic.
+; 0.5.4 : Add queues and circuits.
+==== Colophon
+
+Documented by [[/egg/cock|cock]].

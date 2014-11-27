@@ -1,9 +1,27 @@
-(use setup-helper-mod)
+(include "setup-helper")
+(include "setup-helper-cock")
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.6"))
+ (extension-version "0.6")
+ compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.6"))
+ (extension-version "0.6")
+ compile-options: '(-X cock))
+
+(run-cock -o sicp.wiki
+          sicp.scm
+          abstract-data.scm
+          arithmetic.scm
+          circuits.scm
+          differentiation.scm
+          huffman.scm
+          ;; Picture is throwing off cock because of the asperands
+          ;; in the sxml-transformation; this is a bug.
+          ;; picture.scm
+          queue.scm
+          sets.scm
+          sicp-constraints-core.scm
+          sicp-constraints.scm)

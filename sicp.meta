@@ -2,8 +2,10 @@
  (author "Peter Danenberg")
  (category data)
  (license "BSD")
- (depends htmlprag
+ (depends cock
+          htmlprag
           setup-helper
+          setup-helper-cock
           shell
           token-substitution)
  (test-depends test)

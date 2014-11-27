@@ -1,25 +1,47 @@
 (define (has-value? connector)
+  @("Does this connector have a value?"
+    (connector "The connector to test")
+    (@to "boolean"))
   (connector 'has-value?))
 
 (define (get-value connector)
+  @("Get this connector's value."
+    (connector "The connector to test")
+    (@to "object"))
   (connector 'value))
 
 (define (set-value! connector new-value informant)
+  @("Set this connector's value."
+    (connector "The connector to set"))
   ((connector 'set-value!) new-value informant))
 
 (define (forget-value! connector retractor)
+  @("Forget this connector's value."
+    (connector "The connector to forget"))
   ((connector 'forget) retractor))
 
 (define (connect connector new-constraint)
+  @("Connect a connector to a new constraint."
+    (connector "The connector to connect")
+    (new-constraint "The constraint to add"))
   ((connector 'connect) new-constraint))
 
 (define (inform-about-value constraint)
+  @("Inform the constraint about a new value"
+    (constraint "The constraint to inform"))
   (constraint 'I-have-a-value))
 
 (define (inform-about-no-value constraint)
+  @("Inform the constraint about forgetting"
+    (constraint "The consraint to inform"))
   (constraint 'I-lost-my-value))
 
 (define (adder a1 a2 sum)
+  @("A constraint that adds two numbers"
+    (a1 "Addend")
+    (a2 "Augend")
+    (sum "Sum")
+    (@to "constraint"))
   (define (process-new-value)
     (cond ((and (has-value? a1) (has-value? a2))
            (set-value! sum
@@ -49,6 +71,11 @@
   me)
 
 (define (multiplier m1 m2 product)
+  @("A constraint that multiplies two numbers"
+    (a1 "Multiplier")
+    (a2 "Multiplicand")
+    (sum "Product")
+    (@to "constraint"))  
   (define (process-new-value)
     (cond ((or (and (has-value? m1) (= (get-value m1) 0))
                (and (has-value? m2) (= (get-value m2) 0)))
@@ -83,6 +110,10 @@
   me)
 
 (define (constant value connector)
+  @("A constant constraint"
+    (value "The value to constantly be")
+    (connector "The relevant connector")
+    (@to "constraint"))
   (define (me request)
     (error "Unknown request: CONSTANT" request))
   (connect connector me)
@@ -90,6 +121,10 @@
   me)
 
 (define (probe name connector)
+  @("Probe a connector and inform upon value-change"
+    (name "Name of the connector")
+    (connector "The connector to probe")
+    (@to "constraint"))
   (define (print-probe value)
     (format #t "Probe: ~a = ~a~%" name value))
   (define (process-new-value)
@@ -104,6 +139,8 @@
   me)
 
 (define (make-connector)
+  @("Make a connector."
+    (@to "connector"))
   (let ((value #f) (informant #f) (constraints '()))
     (define (set-my-value newval setter)
       (cond ((not (has-value? me))
@@ -140,6 +177,11 @@
     me))
 
 (define (for-each-except exception procedure list)
+  @("Apply a procedure to every item in ''list'' except ones {{eq?}}
+to ''exception''."
+    (exception "An element not to apply ''procedure'' to")
+    (procedure "The procedure to apply")
+    (list "The list to iterate over"))  
   (define (loop items)
     (cond ((null? items) 'done)
           ((eq? (car items) exception) (loop (cdr items)))

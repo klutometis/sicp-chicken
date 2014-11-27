@@ -3,6 +3,7 @@
    accumulate
    add
    add-action!
+   add-to-agenda!
    add-vect
    addend
    adjoin-set
@@ -16,6 +17,7 @@
    average
    below
    beside
+   call-each
    choose-branch
    contents
    corner-split
@@ -37,6 +39,7 @@
    enumerate-interval
    epsilon
    fast-prime?
+   first-agenda-item
    flatmap
    flip-horiz
    flip-vert
@@ -100,6 +103,7 @@
    put
    real-part
    rear-ptr
+   remove-first-agenda-item!
    right-branch
    right-split
    rotate90

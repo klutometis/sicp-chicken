@@ -3,3 +3,7 @@
 (setup-shared-extension-module
  'sicp
  (extension-version "0.6"))
+
+(setup-shared-extension-module
+ 'sicp-constraints
+ (extension-version "0.6"))

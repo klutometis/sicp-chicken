@@ -4,3 +4,6 @@
 
   Huffman also clashes with tree-sets over the definition of
   =left-branch= and =right-branch=, apparently.
+
+  Also makes sense if we want to import some subset of this huge
+  thing.

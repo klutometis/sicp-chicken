@@ -23,5 +23,5 @@
           ;; picture.scm
           queue.scm
           sets.scm
-          sicp-constraints-core.scm
-          sicp-constraints.scm)
+          sicp-constraints.scm
+          sicp-constraints-core.scm)

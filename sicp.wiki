@@ -148,6 +148,24 @@ through 3.3.4, before we started modularizing them (starting from
 * [[#xcor-vect]]
 * [[#xor]]
 * [[#ycor-vect]]
+=== sicp-constraints
+==== {{sicp-constraints}}
+'''[module]''' {{sicp-constraints}}
+
+Constraint satisfaction from section 3.3.5
+* [[#adder]]
+* [[#connect]]
+* [[#constant]]
+* [[#for-each-except]]
+* [[#forget-value!]]
+* [[#get-value]]
+* [[#has-value?]]
+* [[#set-value!]]
+* [[#inform-about-no-value]]
+* [[#inform-about-value]]
+* [[#make-connector]]
+* [[#multiplier]]
+* [[#probe]]
 ==== {{has-value?}}
 <procedure>(has-value? connector) → boolean</procedure>
 Does this connector have a value?
@@ -331,30 +349,13 @@ to ''exception''.
           (else (procedure (car items)) (loop (cdr items)))))
   (loop list))
 </enscript>
-=== sicp-constraints
-==== {{sicp-constraints}}
-'''[module]''' {{sicp-constraints}}
-
-Constraint satisfaction from section 3.3.5
-* [[#adder]]
-* [[#connect]]
-* [[#constant]]
-* [[#for-each-except]]
-* [[#forget-value!]]
-* [[#get-value]]
-* [[#has-value?]]
-* [[#set-value!]]
-* [[#inform-about-no-value]]
-* [[#inform-about-value]]
-* [[#make-connector]]
-* [[#multiplier]]
-* [[#probe]]
 === About this egg
 
 ==== Author
 
-[[/users/(anonymous)|Peter Danenberg]]
-
+[[/users/klutometis|Peter Danenberg]]
+==== Repository
+[[https://github.com/klutometis/sicp-chicken]]
 ==== License
 BSD
 ==== Dependencies
@@ -366,27 +367,28 @@ BSD
 * [[token-substitution]]
 
 ==== Versions
-; 0.0 : Initial commit
-; 0.0.1 : Add release-info.
-; 0.0.2 : Change the repo and uri.
-; 0.0.3 : Remove 0.0.
-; 0.1 : Some actual code.
-; 0.1.1 : Nil, etc.
-; 0.1.2 : Remove SRFI-18.
-; 0.1.3 : Add accumulate.
-; 0.1.4 : Enumerate interval
-; 0.1.5 : Add flatmap.
-; 0.1.6 : Add `prime?'.
-; 0.2 : Add picture language.
-; 0.3 : Add the outline-painter.
-; 0.4 : Add differentation.
-; 0.4.1 : Add images to picture-language.
-; 0.4.2 : Add write-painter-to-png.
-; 0.5 : Add sets.
-; 0.5.1 : Add Huffman trees.
-; 0.5.2 : Add abstract data.
-; 0.5.3 : Add arithmetic.
-; 0.5.4 : Add queues and circuits.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.0|0.0]] : Initial commit
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.0.1|0.0.1]] : Add release-info.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.0.2|0.0.2]] : Change the repo and uri.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.0.3|0.0.3]] : Remove 0.0.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1|0.1]] : Some actual code.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.1|0.1.1]] : Nil, etc.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.2|0.1.2]] : Remove SRFI-18.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.3|0.1.3]] : Add accumulate.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.4|0.1.4]] : Enumerate interval
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.5|0.1.5]] : Add flatmap.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.6|0.1.6]] : Add `prime?'.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.2|0.2]] : Add picture language.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.3|0.3]] : Add the outline-painter.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.4|0.4]] : Add differentation.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.4.1|0.4.1]] : Add images to picture-language.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.4.2|0.4.2]] : Add write-painter-to-png.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.5|0.5]] : Add sets.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.5.1|0.5.1]] : Add Huffman trees.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.5.2|0.5.2]] : Add abstract data.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.5.3|0.5.3]] : Add arithmetic.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.5.4|0.5.4]] : Add queues and circuits.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.6|0.6]] : Add constraints, documentation.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

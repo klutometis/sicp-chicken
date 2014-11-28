@@ -349,6 +349,56 @@ to ''exception''.
           (else (procedure (car items)) (loop (cdr items)))))
   (loop list))
 </enscript>
+=== sicp-concurrency
+==== {{sicp-concurrency}}
+'''[module]''' {{sicp-concurrency}}
+
+Concurrency procedures from section 3.4
+* [[#make-serializer]]
+* [[#parallel-execute]]
+==== {{thunk->thread}}
+<procedure>(thunk->thread thunk) → thread</procedure>
+Create a thread from {{thunk}} and start the thread.
+; thunk : The thunk to threadify
+<enscript highlight="scheme">(define (thunk->thread thunk)
+  (let ((thread (make-thread thunk))) (thread-start! thread) thread))
+</enscript>
+==== {{parallel-execute}}
+<procedure>(parallel-execute . thunks) → thunk</procedure>
+Execute thunks in parallel; returns a thunk which can be executed
+to terminate the threads.
+; thunks : The thunks to execute in parallel
+<enscript highlight="scheme">(define (parallel-execute . thunks)
+  (let ((threads (map thunk->thread thunks)))
+    (lambda () (for-each thread-terminate! threads))))
+</enscript>
+==== {{with-mutex-locked}}
+<procedure>(with-mutex-locked mutex thunk) → object</procedure>
+Evaluate the thunk having locked the mutex, unlocking it thereafter.
+; mutex : The mutex to lock and unlock
+; thunk : The thunk to evaluate
+<enscript highlight="scheme">(define (with-mutex-locked mutex thunk)
+  (dynamic-wind
+    (lambda () (mutex-lock! mutex))
+    thunk
+    (lambda () (mutex-unlock! mutex))))
+</enscript>
+==== {{make-serializer}}
+<procedure>(make-serializer) → procedure</procedure>
+Create a serializer which returns serialized procedures in a common 
+set; returns a procedure taking {{f}}, the procedure to
+serialize.
+
+<enscript highlight="scheme">(define (make-serializer)
+  (let ((mutex (make-mutex)))
+    (lambda (f)
+      (lambda args (with-mutex-locked mutex (lambda () (apply f args)))))))
+</enscript>
+===== Examples
+Create a serializer and run some thunks.
+ (define s (make-serializer))
+ (parallel-execute (s (lambda () (set! x (* x x))))
+                   (s (lambda () (set! x (+ x 1)))))
 === About this egg
 
 ==== Author
@@ -389,6 +439,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.5.3|0.5.3]] : Add arithmetic.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.5.4|0.5.4]] : Add queues and circuits.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.6|0.6]] : Add constraints, documentation.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7|0.7]] : Add concurrency.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

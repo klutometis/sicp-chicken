@@ -18,18 +18,25 @@ to terminate the threads."
       (for-each thread-terminate! threads))))
 
 (define (with-mutex-locked mutex thunk)
-
-  @("Evaluate the thunk having locked the mutex and unlocking it thereafter."
+  @("Evaluate the thunk having locked the mutex, unlocking it thereafter."
     (mutex "The mutex to lock and unlock")
     (thunk "The thunk to evaluate")
-    )
-
+    (@to "object"))
   (dynamic-wind
       (lambda () (mutex-lock! mutex))
       thunk
       (lambda () (mutex-unlock! mutex))))
 
 (define (make-serializer)
+  @("Create a serializer which returns serialized procedures in a common 
+set; returns a procedure taking {{f}}, the procedure to
+serialize."
+    (@to "procedure")
+    (@example-no-eval "Create a serializer and run some thunks."
+              (define s (make-serializer))
+              (parallel-execute
+               (s (lambda () (set! x (* x x))))
+               (s (lambda () (set! x (+ x 1)))))))
   (let ((mutex (make-mutex)))
     (lambda (f)
       (lambda args

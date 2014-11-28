@@ -3,12 +3,17 @@
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.6")
+ (extension-version "0.7")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.6")
+ (extension-version "0.7")
+ compile-options: '(-X cock))
+
+(setup-shared-extension-module
+ 'sicp-concurrency
+ (extension-version "0.7")
  compile-options: '(-X cock))
 
 (run-cock -o sicp.wiki
@@ -24,4 +29,6 @@
           queue.scm
           sets.scm
           sicp-constraints.scm
-          sicp-constraints-core.scm)
+          sicp-constraints-core.scm
+          sicp-concurrency.scm
+          sicp-concurrency-core.scm)

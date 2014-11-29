@@ -412,7 +412,6 @@ BSD
 * [[cock]]
 * [[htmlprag]]
 * [[setup-helper]]
-* [[setup-helper-cock]]
 * [[shell]]
 * [[token-substitution]]
 

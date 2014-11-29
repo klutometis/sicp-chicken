@@ -3,17 +3,17 @@
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.7")
+ (extension-version "0.7.1")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.7")
+ (extension-version "0.7.1")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-concurrency
- (extension-version "0.7")
+ (extension-version "0.7.1")
  compile-options: '(-X cock))
 
 (run-cock -o sicp.wiki
@@ -23,8 +23,10 @@
           circuits.scm
           differentiation.scm
           huffman.scm
-          ;; Picture is throwing off cock because of the asperands
-          ;; in the sxml-transformation; this is a bug.
+          ;; Picture is throwing off cock because of the asperands in
+          ;; the sxml-transformation; this is a bug. (See the
+          ;; (string->symbol "@") hack.)
+          ;; 
           ;; picture.scm
           queue.scm
           sets.scm

@@ -8,7 +8,6 @@
  (depends cock
           htmlprag
           setup-helper
-          setup-helper-cock
           shell
           token-substitution)
  (test-depends test)

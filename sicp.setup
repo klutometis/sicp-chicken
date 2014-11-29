@@ -23,11 +23,7 @@
           circuits.scm
           differentiation.scm
           huffman.scm
-          ;; Picture is throwing off cock because of the asperands in
-          ;; the sxml-transformation; this is a bug. (See the
-          ;; (string->symbol "@") hack.)
-          ;; 
-          ;; picture.scm
+          picture.scm
           queue.scm
           sets.scm
           sicp-constraints.scm

@@ -439,6 +439,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.5.4|0.5.4]] : Add queues and circuits.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.6|0.6]] : Add constraints, documentation.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7|0.7]] : Add concurrency.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.1|0.7.1]] : Remove the dependency on setup-helper-cock.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

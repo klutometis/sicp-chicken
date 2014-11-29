@@ -141,11 +141,11 @@
                                     (make-vect 0 (image-height))))))
 
 (define svg-document
-  `(svg (@ (xmlns "http://www.w3.org/2000/svg")
-           (xmlns:xlink "http://www.w3.org/1999/xlink")
-           (height (%data height))
-           (width (%data width)))
-        (g (@ (stroke "black"))
+  `(svg (,at (xmlns "http://www.w3.org/2000/svg")
+             (xmlns:xlink "http://www.w3.org/1999/xlink")
+             (height (%data height))
+             (width (%data width)))
+        (g (,at (stroke "black"))
            (%data body))))
 
 (define display-features-as-svg
@@ -168,19 +168,19 @@
 (define accumulator (make-parameter (make-accumulator)))
 
 (define (line->svg start end)
-  `(line (@ (x1 ,(number->string (xcor-vect start)))
-            (y1 ,(number->string (ycor-vect start)))
-            (x2 ,(number->string (xcor-vect end)))
-            (y2 ,(number->string (ycor-vect end))))))
+  `(line (,at (x1 ,(number->string (xcor-vect start)))
+              (y1 ,(number->string (ycor-vect start)))
+              (x2 ,(number->string (xcor-vect end)))
+              (y2 ,(number->string (ycor-vect end))))))
 
 (define (segments->painter segment-list)
   (lambda (frame)
     (for-each
-     (lambda (segment)
-       ((accumulator)
-        (line->svg
-         ((frame-coord-map frame) (start-segment segment))
-         ((frame-coord-map frame) (end-segment segment)))))
+        (lambda (segment)
+          ((accumulator)
+           (line->svg
+            ((frame-coord-map frame) (start-segment segment))
+            ((frame-coord-map frame) (end-segment segment)))))
       segment-list)))
 
 (define (image->painter image)
@@ -195,11 +195,11 @@
             (e (car origin))
             (f (cdr origin)))
         ((accumulator)
-         `(g (@ (transform
-                 ,(format "matrix(~a, ~a, ~a, ~a, ~a, ~a)" a b c d e f)))
-             (image (@ (xlink:href ,image)
-                       (width "1")
-                       (height "1")))))))))
+         `(g (,at (transform
+                   ,(format "matrix(~a, ~a, ~a, ~a, ~a, ~a)" a b c d e f)))
+             (image (,at (xlink:href ,image)
+                         (width "1")
+                         (height "1")))))))))
 
 (define (draw-painter-as-svg painter)
   (parameterize ((accumulator (make-accumulator)))

@@ -144,7 +144,8 @@ through 3.3.4, before we started modularizing them (starting from
    xor
    ycor-vect)
   (import chicken data-structures extras scheme)
-  (use files
+  (use cock
+       files
        (only htmlprag write-shtml-as-html)
        shell
        srfi-18

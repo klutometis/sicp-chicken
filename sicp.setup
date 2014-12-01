@@ -1,19 +1,18 @@
-(include "setup-helper")
-(include "setup-helper-cock")
+(use cock setup-helper-mod)
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.7.2")
+ (extension-version "0.7.3")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.7.2")
+ (extension-version "0.7.3")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-concurrency
- (extension-version "0.7.2")
+ (extension-version "0.7.3")
  compile-options: '(-X cock))
 
 (run-cock -o sicp.wiki

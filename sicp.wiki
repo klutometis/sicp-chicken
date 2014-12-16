@@ -575,6 +575,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.1|0.7.1]] : Remove the dependency on setup-helper-cock.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.2|0.7.2]] : Update sxml to work with `at'.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.3|0.7.3]] : Drop setup-helper-cock.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8|0.8]] : Add streams.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

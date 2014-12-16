@@ -5,34 +5,34 @@
   (connector 'has-value?))
 
 (define (get-value connector)
-  @("Get this connector's value."
+  @("Gets this connector's value."
     (connector "The connector to test")
     (@to "object"))
   (connector 'value))
 
 (define (set-value! connector new-value informant)
-  @("Set this connector's value."
+  @("Sets this connector's value."
     (connector "The connector to set"))
   ((connector 'set-value!) new-value informant))
 
 (define (forget-value! connector retractor)
-  @("Forget this connector's value."
+  @("Forgets this connector's value."
     (connector "The connector to forget"))
   ((connector 'forget) retractor))
 
 (define (connect connector new-constraint)
-  @("Connect a connector to a new constraint."
+  @("Connects a connector to a new constraint."
     (connector "The connector to connect")
     (new-constraint "The constraint to add"))
   ((connector 'connect) new-constraint))
 
 (define (inform-about-value constraint)
-  @("Inform the constraint about a new value"
+  @("Informs the constraint about a new value"
     (constraint "The constraint to inform"))
   (constraint 'I-have-a-value))
 
 (define (inform-about-no-value constraint)
-  @("Inform the constraint about forgetting"
+  @("Informs the constraint about forgetting."
     (constraint "The consraint to inform"))
   (constraint 'I-lost-my-value))
 
@@ -121,7 +121,7 @@
   me)
 
 (define (probe name connector)
-  @("Probe a connector and inform upon value-change"
+  @("Probes a connector and informs upon value-change."
     (name "Name of the connector")
     (connector "The connector to probe")
     (@to "constraint"))
@@ -139,7 +139,7 @@
   me)
 
 (define (make-connector)
-  @("Make a connector."
+  @("Makes a connector."
     (@to "connector"))
   (let ((value #f) (informant #f) (constraints '()))
     (define (set-my-value newval setter)
@@ -177,7 +177,7 @@
     me))
 
 (define (for-each-except exception procedure list)
-  @("Apply a procedure to every item in ''list'' except ones {{eq?}}
+  @("Applies a procedure to every item in ''list'' except ones {{eq?}}
 to ''exception''."
     (exception "An element not to apply ''procedure'' to")
     (procedure "The procedure to apply")

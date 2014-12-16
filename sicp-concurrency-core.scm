@@ -1,7 +1,7 @@
 (use srfi-18)
 
 (define (thunk->thread thunk)
-  @("Create a thread from {{thunk}} and start the thread."
+  @("Creates a thread from {{thunk}} and start the thread."
     (thunk "The thunk to threadify")
     (@to "thread"))
   (let ((thread (make-thread thunk)))
@@ -9,7 +9,7 @@
     thread))
 
 (define (parallel-execute . thunks)
-  @("Execute thunks in parallel; returns a thunk which can be executed
+  @("Executes thunks in parallel; returns a thunk which can be executed
 to terminate the threads."
     (thunks "The thunks to execute in parallel")
     (@to "thunk"))
@@ -17,18 +17,23 @@ to terminate the threads."
     (lambda ()
       (for-each thread-terminate! threads))))
 
-(define (with-mutex-locked mutex thunk)
-  @("Evaluate the thunk having locked the mutex, unlocking it thereafter."
+(define with-mutex-locked
+  @("Evaluates the thunk having locked the mutex, unlocking it thereafter."
     (mutex "The mutex to lock and unlock")
     (thunk "The thunk to evaluate")
+    (conditional-variable "An optional conditional-variable to block
+on at unlock")
     (@to "object"))
-  (dynamic-wind
-      (lambda () (mutex-lock! mutex))
-      thunk
-      (lambda () (mutex-unlock! mutex))))
+  (case-lambda ((mutex thunk)
+           (with-mutex-locked mutex thunk #f))
+          ((mutex thunk conditional-variable)
+           (dynamic-wind
+               (lambda () (mutex-lock! mutex))
+               thunk
+               (lambda () (mutex-unlock! mutex conditional-variable))))))
 
 (define (make-serializer)
-  @("Create a serializer which returns serialized procedures in a common 
+  @("Creates a serializer which returns serialized procedures in a common 
 set; returns a procedure taking {{f}}, the procedure to
 serialize."
     (@to "procedure")

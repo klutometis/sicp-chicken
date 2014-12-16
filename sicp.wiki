@@ -442,15 +442,15 @@ Is this stream null?
 </enscript>
 ==== {{cons-stream}}
 <syntax>(cons-stream a d) → stream</syntax>
-Constructs a stream; returns a stream whose {{stream-car}} is
- {{a}} and whose {{stream-cdr}} is a delayed {{d}}.
+Constructs a stream; returns a stream whose {{stream-car}} is {{a}}
+and whose {{stream-cdr}} is a delayed {{d}}.
 ; a : The address part
 ; d : The decrement part
 <enscript highlight="scheme">(define-syntax
   cons-stream
   (ir-macro-transformer
     (lambda (expression rename inject)
-      (match-let (((_ a b) expression)) `(cons ,a (delay ,b))))))
+      (match expression ((_ a b) `(cons ,a (delay ,b)))))))
 </enscript>
 ==== {{stream-ref}}
 <procedure>(stream-ref s n) → object</procedure>

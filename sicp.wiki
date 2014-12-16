@@ -174,26 +174,26 @@ Does this connector have a value?
 </enscript>
 ==== {{get-value}}
 <procedure>(get-value connector) → object</procedure>
-Get this connector's value.
+Gets this connector's value.
 ; connector : The connector to test
 <enscript highlight="scheme">(define (get-value connector) (connector 'value))
 </enscript>
 ==== {{set-value!}}
 <procedure>(set-value! connector new-value informant) → unspecified</procedure>
-Set this connector's value.
+Sets this connector's value.
 ; connector : The connector to set
 <enscript highlight="scheme">(define (set-value! connector new-value informant)
   ((connector 'set-value!) new-value informant))
 </enscript>
 ==== {{forget-value!}}
 <procedure>(forget-value! connector retractor) → unspecified</procedure>
-Forget this connector's value.
+Forgets this connector's value.
 ; connector : The connector to forget
 <enscript highlight="scheme">(define (forget-value! connector retractor) ((connector 'forget) retractor))
 </enscript>
 ==== {{connect}}
 <procedure>(connect connector new-constraint) → unspecified</procedure>
-Connect a connector to a new constraint.
+Connects a connector to a new constraint.
 ; connector : The connector to connect
 ; new-constraint : The constraint to add
 <enscript highlight="scheme">(define (connect connector new-constraint)
@@ -201,13 +201,13 @@ Connect a connector to a new constraint.
 </enscript>
 ==== {{inform-about-value}}
 <procedure>(inform-about-value constraint) → unspecified</procedure>
-Inform the constraint about a new value
+Informs the constraint about a new value
 ; constraint : The constraint to inform
 <enscript highlight="scheme">(define (inform-about-value constraint) (constraint 'I-have-a-value))
 </enscript>
 ==== {{inform-about-no-value}}
 <procedure>(inform-about-no-value constraint) → unspecified</procedure>
-Inform the constraint about forgetting
+Informs the constraint about forgetting.
 ; constraint : The consraint to inform
 <enscript highlight="scheme">(define (inform-about-no-value constraint) (constraint 'I-lost-my-value))
 </enscript>
@@ -285,7 +285,7 @@ A constant constraint
 </enscript>
 ==== {{probe}}
 <procedure>(probe name connector) → constraint</procedure>
-Probe a connector and inform upon value-change
+Probes a connector and informs upon value-change.
 ; name : Name of the connector
 ; connector : The connector to probe
 <enscript highlight="scheme">(define (probe name connector)
@@ -302,7 +302,7 @@ Probe a connector and inform upon value-change
 </enscript>
 ==== {{make-connector}}
 <procedure>(make-connector) → connector</procedure>
-Make a connector.
+Makes a connector.
 
 <enscript highlight="scheme">(define (make-connector)
   (let ((value #f) (informant #f) (constraints '()))
@@ -337,7 +337,7 @@ Make a connector.
 </enscript>
 ==== {{for-each-except}}
 <procedure>(for-each-except exception procedure list) → unspecified</procedure>
-Apply a procedure to every item in ''list'' except ones {{eq?}}
+Applies a procedure to every item in ''list'' except ones {{eq?}}
 to ''exception''.
 ; exception : An element not to apply ''procedure'' to
 ; procedure : The procedure to apply
@@ -356,16 +356,17 @@ to ''exception''.
 Concurrency procedures from section 3.4
 * [[#make-serializer]]
 * [[#parallel-execute]]
+* [[#with-mutex-locked]]
 ==== {{thunk->thread}}
 <procedure>(thunk->thread thunk) → thread</procedure>
-Create a thread from {{thunk}} and start the thread.
+Creates a thread from {{thunk}} and start the thread.
 ; thunk : The thunk to threadify
 <enscript highlight="scheme">(define (thunk->thread thunk)
   (let ((thread (make-thread thunk))) (thread-start! thread) thread))
 </enscript>
 ==== {{parallel-execute}}
 <procedure>(parallel-execute . thunks) → thunk</procedure>
-Execute thunks in parallel; returns a thunk which can be executed
+Executes thunks in parallel; returns a thunk which can be executed
 to terminate the threads.
 ; thunks : The thunks to execute in parallel
 <enscript highlight="scheme">(define (parallel-execute . thunks)
@@ -374,18 +375,23 @@ to terminate the threads.
 </enscript>
 ==== {{with-mutex-locked}}
 <procedure>(with-mutex-locked mutex thunk) → object</procedure>
-Evaluate the thunk having locked the mutex, unlocking it thereafter.
+<procedure>(with-mutex-locked mutex thunk conditional-variable) → object</procedure>
+Evaluates the thunk having locked the mutex, unlocking it thereafter.
 ; mutex : The mutex to lock and unlock
 ; thunk : The thunk to evaluate
-<enscript highlight="scheme">(define (with-mutex-locked mutex thunk)
-  (dynamic-wind
-    (lambda () (mutex-lock! mutex))
-    thunk
-    (lambda () (mutex-unlock! mutex))))
+; conditional-variable : An optional conditional-variable to block on at unlock
+<enscript highlight="scheme">(define with-mutex-locked
+  (case-lambda
+    ((mutex thunk) (with-mutex-locked mutex thunk #f))
+    ((mutex thunk conditional-variable)
+     (dynamic-wind
+       (lambda () (mutex-lock! mutex))
+       thunk
+       (lambda () (mutex-unlock! mutex conditional-variable))))))
 </enscript>
 ==== {{make-serializer}}
 <procedure>(make-serializer) → procedure</procedure>
-Create a serializer which returns serialized procedures in a common 
+Creates a serializer which returns serialized procedures in a common 
 set; returns a procedure taking {{f}}, the procedure to
 serialize.
 
@@ -399,6 +405,132 @@ Create a serializer and run some thunks.
  (define s (make-serializer))
  (parallel-execute (s (lambda () (set! x (* x x))))
                    (s (lambda () (set! x (+ x 1)))))
+=== sicp-streams
+==== {{sicp-streams}}
+'''[module]''' {{sicp-streams}}
+
+Stream procedures from section 3.5
+* [[#cons-stream]]
+* [[#display-line]]
+* [[#display-stream]]
+* [[#stream-car]]
+* [[#stream-cdr]]
+* [[#stream-enumerate-interval]]
+* [[#stream-filter]]
+* [[#stream-for-each]]
+* [[#stream->list]]
+* [[#stream-map]]
+* [[#stream-null]]
+* [[#stream-null?]]
+* [[#stream-ref]]
+* [[#the-empty-stream]]
+==== {{stream-null}}
+<constant>stream-null → (quote ())</constant>
+The empty stream
+<enscript highlight="scheme">(define stream-null '())
+</enscript>
+==== {{the-empty-stream}}
+<constant>the-empty-stream → stream-null</constant>
+A synonym for {{stream-null}}
+<enscript highlight="scheme">(define the-empty-stream stream-null)
+</enscript>
+==== {{stream-null?}}
+<procedure>(stream-null? stream) → boolean</procedure>
+Is this stream null?
+; stream : The stream to test
+<enscript highlight="scheme">(define stream-null? null?)
+</enscript>
+==== {{cons-stream}}
+<syntax>(cons-stream a d) → stream</syntax>
+Constructs a stream; returns a stream whose {{stream-car}} is
+ {{a}} and whose {{stream-cdr}} is a delayed {{d}}.
+; a : The address part
+; d : The decrement part
+<enscript highlight="scheme">(define-syntax
+  cons-stream
+  (ir-macro-transformer
+    (lambda (expression rename inject)
+      (match-let (((_ a b) expression)) `(cons ,a (delay ,b))))))
+</enscript>
+==== {{stream-ref}}
+<procedure>(stream-ref s n) → object</procedure>
+Returns the nth element of the stream, consuming any non-memoized
+elements.
+; s : The stream to consume
+; n : The nth element
+<enscript highlight="scheme">(define (stream-ref s n)
+  (if (= n 0) (stream-car s) (stream-ref (stream-cdr s) (- n 1))))
+</enscript>
+==== {{stream-map}}
+<procedure>(stream-map proc s) → stream</procedure>
+Constructs a stream which is a {{proc}}-mapped {{s}}.
+; proc : The procedure to apply
+; s : The stream to apply to
+<enscript highlight="scheme">(define (stream-map proc s)
+  (if (stream-null? s)
+    stream-null
+    (cons-stream (proc (stream-car s)) (stream-map proc (stream-cdr s)))))
+</enscript>
+==== {{stream-for-each}}
+<procedure>(stream-for-each proc s) → unspecified</procedure>
+Applies {{proc}} to every element of {{s}}, consuming it.
+; proc : The procedure to apply
+; s : The stream to apply to
+<enscript highlight="scheme">(define (stream-for-each proc s)
+  (if (stream-null? s)
+    'done
+    (begin (proc (stream-car s)) (stream-for-each proc (stream-cdr s)))))
+</enscript>
+==== {{display-stream}}
+<procedure>(display-stream s) → unspecified</procedure>
+Displays every element of the stream.
+; s : The stream to display
+<enscript highlight="scheme">(define (display-stream s) (stream-for-each display-line s))
+</enscript>
+==== {{stream-car}}
+<procedure>(stream-car stream) → object</procedure>
+Takes the first element of the stream.
+; stream : The stream to take
+<enscript highlight="scheme">(define (stream-car stream) (car stream))
+</enscript>
+==== {{stream-cdr}}
+<procedure>(stream-cdr stream) → stream</procedure>
+Forces and returns the cdr of the stream.
+; stream : The stream whose cdr to force
+<enscript highlight="scheme">(define (stream-cdr stream) (force (cdr stream)))
+</enscript>
+==== {{stream-enumerate-interval}}
+<procedure>(stream-enumerate-interval low high) → stream</procedure>
+Enumerates the interval between {{low}} and {{high}} streamingly.
+; low : The lower bound
+; high : The upper bound
+<enscript highlight="scheme">(define (stream-enumerate-interval low high)
+  (if (> low high)
+    stream-null
+    (cons-stream low (stream-enumerate-interval (+ low 1) high))))
+</enscript>
+==== {{stream-filter}}
+<procedure>(stream-filter pred stream) → stream</procedure>
+Filters a stream, applying {{pred}}.
+; pred : The predicate upon which to filter.
+; stream : The stream to filter
+<enscript highlight="scheme">(define (stream-filter pred stream)
+  (cond ((stream-null? stream) stream-null)
+        ((pred (stream-car stream))
+         (cons-stream
+           (stream-car stream)
+           (stream-filter pred (stream-cdr stream))))
+        (else (stream-filter pred (stream-cdr stream)))))
+</enscript>
+==== {{stream->list}}
+<procedure>(stream->list stream) → stream</procedure>
+Converts a stream to a list, consuming it.
+; stream : The stream to convert to a list
+<enscript highlight="scheme">(define (stream->list stream)
+  (if (stream-null? stream)
+    '()
+    (cons (stream-car stream) (stream->list (stream-cdr stream)))))
+</enscript>
 === About this egg
 
 ==== Author
@@ -411,6 +543,7 @@ BSD
 ==== Dependencies
 * [[cock]]
 * [[htmlprag]]
+* [[matchable]]
 * [[setup-helper]]
 * [[shell]]
 * [[token-substitution]]
@@ -441,6 +574,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7|0.7]] : Add concurrency.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.1|0.7.1]] : Remove the dependency on setup-helper-cock.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.2|0.7.2]] : Update sxml to work with `at'.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.3|0.7.3]] : Drop setup-helper-cock.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

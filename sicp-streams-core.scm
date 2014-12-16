@@ -13,8 +13,8 @@
   null?)
 
 (define-syntax cons-stream
-  @("Constructs a stream; returns a stream whose {{stream-car}} is
- {{a}} and whose {{stream-cdr}} is a delayed {{d}}."
+  @("Constructs a stream; returns a stream whose {{stream-car}} is {{a}}
+and whose {{stream-cdr}} is a delayed {{d}}."
     (a "The address part")
     (d "The decrement part")
     (@to "stream"))  

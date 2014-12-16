@@ -20,8 +20,8 @@ and whose {{stream-cdr}} is a delayed {{d}}."
     (@to "stream"))  
   (ir-macro-transformer
    (lambda (expression rename inject)
-     (match-let (((_ a b) expression))
-       `(cons ,a (delay ,b))))))
+     (match expression
+       ((_ a b) `(cons ,a (delay ,b)))))))
 
 (define (stream-ref s n)
   @("Returns the nth element of the stream, consuming any non-memoized

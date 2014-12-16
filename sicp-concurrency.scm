@@ -3,6 +3,7 @@
 (module sicp-concurrency
   @("Concurrency procedures from section 3.4")
   (make-serializer
-   parallel-execute)
+   parallel-execute
+   with-mutex-locked)
   (import chicken scheme)
   (include "sicp-concurrency-core.scm"))

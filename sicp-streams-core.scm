@@ -95,10 +95,14 @@ elements."
                        (stream-cdr stream))))
         (else (stream-filter pred (stream-cdr stream)))))
 
-(define (stream->list stream)
-  @("Converts a stream to a list, consuming it."
+(define stream->list
+  @("Converts a stream to a list, consuming it (or up to n elements)."
     (stream "The stream to convert to a list")
+    (n "Optionally, the maximum number of elements to consume; otherwise: all elements")
     (@to "stream"))
-  (if (stream-null? stream)
-      '()
-      (cons (stream-car stream) (stream->list (stream-cdr stream)))))
+  (case-lambda
+   ((stream) (stream->list stream +inf))
+   ((stream n)
+    (if (or (stream-null? stream) (zero? n))
+        '()
+        (cons (stream-car stream) (stream->list (stream-cdr stream) (- n 1)))))))

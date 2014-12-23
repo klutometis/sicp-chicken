@@ -1,4 +1,4 @@
-(use sicp test)
+(use sicp sicp-streams test)
 
 (test
  "draw-painter-as-svg"
@@ -29,3 +29,12 @@
 
 (test 1 (deriv '(+ x 3) 'x))
 (test 'y (deriv '(* x y) 'x))
+
+(test '(1 2 3)
+      (stream->list
+       (cons-stream 1 (cons-stream 2 (cons-stream 3 stream-null)))))
+
+(test '(1 2)
+      (stream->list
+       (cons-stream 1 (cons-stream 2 (cons-stream 3 stream-null)))
+       2))

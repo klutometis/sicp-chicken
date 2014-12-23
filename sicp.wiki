@@ -524,12 +524,18 @@ Filters a stream, applying {{pred}}.
 </enscript>
 ==== {{stream->list}}
 <procedure>(stream->list stream) → stream</procedure>
-Converts a stream to a list, consuming it.
+<procedure>(stream->list stream n) → stream</procedure>
+Converts a stream to a list, consuming it (or up to n elements).
 ; stream : The stream to convert to a list
-<enscript highlight="scheme">(define (stream->list stream)
-  (if (stream-null? stream)
-    '()
-    (cons (stream-car stream) (stream->list (stream-cdr stream)))))
+; n : Optionally, the maximum number of elements to consume; otherwise: all elements
+<enscript highlight="scheme">(define stream->list
+  (case-lambda
+    ((stream) (stream->list stream +inf.0))
+    ((stream n)
+     (if (or (stream-null? stream) (zero? n))
+       '()
+       (cons (stream-car stream)
+             (stream->list (stream-cdr stream) (- n 1)))))))
 </enscript>
 === About this egg
 
@@ -576,6 +582,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.2|0.7.2]] : Update sxml to work with `at'.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.3|0.7.3]] : Drop setup-helper-cock.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8|0.8]] : Add streams.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.1|0.8.1]] : Use match instead of match-let.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

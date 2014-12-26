@@ -101,7 +101,7 @@ elements."
     (n "Optionally, the maximum number of elements to consume; otherwise: all elements")
     (@to "stream"))
   (case-lambda
-   ((stream) (stream->list stream +inf))
+   ((stream) (stream->list stream +inf.0))
    ((stream n)
     (if (or (stream-null? stream) (zero? n))
         '()

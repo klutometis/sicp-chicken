@@ -583,6 +583,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.7.3|0.7.3]] : Drop setup-helper-cock.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8|0.8]] : Add streams.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.1|0.8.1]] : Use match instead of match-let.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.2|0.8.2]] : Add a limit to stream-consumption on stream->list.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

@@ -33,15 +33,16 @@ on at unlock")
                (lambda () (mutex-unlock! mutex conditional-variable))))))
 
 (define (make-serializer)
-  @("Creates a serializer which returns serialized procedures in a common 
-set; returns a procedure taking {{f}}, the procedure to
+  @("Creates a serializer which returns serialized procedures in a
+common set; returns a procedure taking {{f}}, the procedure to
 serialize."
     (@to "procedure")
-    (@example-no-eval "Create a serializer and run some thunks."
-              (define s (make-serializer))
-              (parallel-execute
-               (s (lambda () (set! x (* x x))))
-               (s (lambda () (set! x (+ x 1)))))))
+    (@example "Create a serializer and run some thunks."
+              (let ((s (make-serializer))
+                    (x 10))
+                (parallel-execute
+                 (s (lambda () (set! x (* x x))))
+                 (s (lambda () (set! x (+ x 1))))))))
   (let ((mutex (make-mutex)))
     (lambda (f)
       (lambda args

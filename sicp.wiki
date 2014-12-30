@@ -391,8 +391,8 @@ Evaluates the thunk having locked the mutex, unlocking it thereafter.
 </enscript>
 ==== {{make-serializer}}
 <procedure>(make-serializer) → procedure</procedure>
-Creates a serializer which returns serialized procedures in a common 
-set; returns a procedure taking {{f}}, the procedure to
+Creates a serializer which returns serialized procedures in a
+common set; returns a procedure taking {{f}}, the procedure to
 serialize.
 
 <enscript highlight="scheme">(define (make-serializer)
@@ -415,6 +415,7 @@ Stream procedures from section 3.5
 * [[#cons-stream]]
 * [[#display-line]]
 * [[#display-stream]]
+* [[#scale-stream]]
 * [[#stream-car]]
 * [[#stream-cdr]]
 * [[#stream-enumerate-interval]]
@@ -539,6 +540,14 @@ Converts a stream to a list, consuming it (or up to n elements).
        (cons (stream-car stream)
              (stream->list (stream-cdr stream) (- n 1)))))))
 </enscript>
+==== {{scale-stream}}
+<procedure>(scale-stream stream factor) → stream</procedure>
+Scales the stream by a constant factor.
+; {{stream}} : The stream to scale
+; {{factor}} : The factor by which to scale it
+<enscript highlight="scheme">(define (scale-stream stream factor)
+  (stream-map (lambda (x) (* x factor)) stream))
+</enscript>
 === About this egg
 
 ==== Author
@@ -587,6 +596,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.1|0.8.1]] : Use match instead of match-let.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.2|0.8.2]] : Add a limit to stream-consumption on stream->list.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.3|0.8.3]] : Use +inf.0 instead of +inf.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.4|0.8.4]] : Evaluate examples; update docs.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

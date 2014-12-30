@@ -5,6 +5,7 @@
   (cons-stream
    display-line
    display-stream
+   scale-stream
    stream-car
    stream-cdr
    stream-enumerate-interval

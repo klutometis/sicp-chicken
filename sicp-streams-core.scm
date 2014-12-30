@@ -106,3 +106,10 @@ elements."
     (if (or (stream-null? stream) (zero? n))
         '()
         (cons (stream-car stream) (stream->list (stream-cdr stream) (- n 1)))))))
+
+(define (scale-stream stream factor)
+  @("Scales the stream by a constant factor."
+    (stream "The stream to scale")
+    (factor "The factor by which to scale it")
+    (@to "stream"))
+  (stream-map (lambda (x) (* x factor)) stream))

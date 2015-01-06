@@ -412,9 +412,12 @@ Create a serializer and run some thunks.
 '''[module]''' {{sicp-streams}}
 
 Stream procedures from section 3.5
+* [[#accelerated-sequence]]
 * [[#cons-stream]]
 * [[#display-line]]
 * [[#display-stream]]
+* [[#euler-transform]]
+* [[#make-tableau]]
 * [[#scale-stream]]
 * [[#stream-car]]
 * [[#stream-cdr]]
@@ -548,6 +551,35 @@ Scales the stream by a constant factor.
 <enscript highlight="scheme">(define (scale-stream stream factor)
   (stream-map (lambda (x) (* x factor)) stream))
 </enscript>
+==== {{euler-transform}}
+<procedure>(euler-transform s) → stream</procedure>
+Applies [[http://en.wikipedia.org/wiki/Series_acceleration#Euler.27s_transform|Euler's
+transform]], i.e. a linear sequence transformation for improved
+convergence, to a stream.
+; {{s}} : The stream to which to apply Euler's transform
+<enscript highlight="scheme">(define (euler-transform s)
+  (let ((s0 (stream-ref s 0)) (s1 (stream-ref s 1)) (s2 (stream-ref s 2)))
+    (cons-stream
+      (- s2 (/ (square (- s2 s1)) (+ s0 (* -2 s1) s2)))
+      (euler-transform (stream-cdr s)))))
+</enscript>
+==== {{make-tableau}}
+<procedure>(make-tableau transform s) → stream</procedure>
+Makes a tableau (i.e., a stream of streams) compounded from some
+transformation.
+; {{transform}} : The compounding transformation
+; {{s}} : The stream to transformatively compound
+<enscript highlight="scheme">(define (make-tableau transform s)
+  (cons-stream s (make-tableau transform (transform s))))
+</enscript>
+==== {{accelerated-sequence}}
+<procedure>(accelerated-sequence transform s) → stream</procedure>
+Accelerates some converging sequence.
+; {{transform}} : The transformation to apply
+; {{s}} : The sequence to accelerate, e.g. [[euler-transform]]
+<enscript highlight="scheme">(define (accelerated-sequence transform s)
+  (stream-map stream-car (make-tableau transform s)))
+</enscript>
 === About this egg
 
 ==== Author
@@ -597,6 +629,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.2|0.8.2]] : Add a limit to stream-consumption on stream->list.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.3|0.8.3]] : Use +inf.0 instead of +inf.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.4|0.8.4]] : Evaluate examples; update docs.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.5|0.8.5]] : Add scale-stream.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

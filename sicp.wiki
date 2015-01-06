@@ -630,6 +630,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.3|0.8.3]] : Use +inf.0 instead of +inf.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.4|0.8.4]] : Evaluate examples; update docs.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.5|0.8.5]] : Add scale-stream.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.6|0.8.6]] : Add accelerated sequences.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

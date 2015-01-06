@@ -2,9 +2,12 @@
 
 (module sicp-streams
   @("Stream procedures from section 3.5")
-  (cons-stream
+  (accelerated-sequence
+   cons-stream
    display-line
    display-stream
+   euler-transform
+   make-tableau
    scale-stream
    stream-car
    stream-cdr
@@ -19,4 +22,5 @@
    the-empty-stream)
   (import chicken scheme)
   (import-for-syntax matchable)
+  (use sicp)
   (include "sicp-streams-core.scm"))

@@ -113,3 +113,31 @@ elements."
     (factor "The factor by which to scale it")
     (@to "stream"))
   (stream-map (lambda (x) (* x factor)) stream))
+
+(define (euler-transform s)
+  @("Applies [[http://en.wikipedia.org/wiki/Series_acceleration#Euler.27s_transform|Euler's
+transform]], i.e. a linear sequence transformation for improved
+convergence, to a stream."
+    (s "The stream to which to apply Euler's transform")
+    (@to "stream"))
+  (let ((s0 (stream-ref s 0))
+        (s1 (stream-ref s 1))
+        (s2 (stream-ref s 2)))
+    (cons-stream (- s2 (/ (square (- s2 s1))
+                          (+ s0 (* -2 s1) s2)))
+                 (euler-transform (stream-cdr s)))))
+
+(define (make-tableau transform s)
+  @("Makes a tableau (i.e., a stream of streams) compounded from some
+transformation."
+    (transform "The compounding transformation")
+    (s "The stream to transformatively compound")
+    (@to "stream"))
+  (cons-stream s (make-tableau transform (transform s))))
+
+(define (accelerated-sequence transform s)
+  @("Accelerates some converging sequence."
+    (transform "The transformation to apply")
+    (s "The sequence to accelerate, e.g. [[euler-transform]]")
+    (@to "stream"))
+  (stream-map stream-car (make-tableau transform s)))

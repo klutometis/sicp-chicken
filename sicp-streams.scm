@@ -8,7 +8,9 @@
    display-stream
    euler-transform
    integers
+   interleave
    make-tableau
+   pairs
    scale-stream
    stream-car
    stream-cdr

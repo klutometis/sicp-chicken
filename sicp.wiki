@@ -418,7 +418,9 @@ Stream procedures from section 3.5
 * [[#display-stream]]
 * [[#euler-transform]]
 * [[#integers]]
+* [[#interleave]]
 * [[#make-tableau]]
+* [[#pairs]]
 * [[#scale-stream]]
 * [[#stream-car]]
 * [[#stream-cdr]]
@@ -593,6 +595,28 @@ Enumerates the integers starting from n streamingly.
 Enumerates the positive integers streamingly.
 <enscript highlight="scheme">(define integers (integers-starting-from 1))
 </enscript>
+==== {{interleave}}
+<procedure>(interleave s1 s2) → stream</procedure>
+Interleaves two streams.
+; {{s1}} : The interleavened stream
+; {{s1}} : The interleaving stream
+<enscript highlight="scheme">(define (interleave s1 s2)
+  (if (stream-null? s1)
+    s2
+    (cons-stream (stream-car s1) (interleave s2 (stream-cdr s1)))))
+</enscript>
+==== {{pairs}}
+<procedure>(pairs s t) → stream</procedure>
+Generates the stream of pairs (S_i, T_j), where i <= j.
+; {{s}} : The first stream to pair
+; {{t}} : The second stream to pair
+<enscript highlight="scheme">(define (pairs s t)
+  (cons-stream
+    (list (stream-car s) (stream-car t))
+    (interleave
+      (stream-map (lambda (x) (list (stream-car s) x)) (stream-cdr t))
+      (pairs (stream-cdr s) (stream-cdr t)))))
+</enscript>
 === About this egg
 
 ==== Author
@@ -644,6 +668,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.4|0.8.4]] : Evaluate examples; update docs.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.5|0.8.5]] : Add scale-stream.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.6|0.8.6]] : Add accelerated sequences.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.7|0.8.7]] : Add integers.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

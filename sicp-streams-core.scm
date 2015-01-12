@@ -150,3 +150,26 @@ transformation."
 (define integers
   @("Enumerates the positive integers streamingly.")
   (integers-starting-from 1))
+
+(define (interleave s1 s2)
+  @("Interleaves two streams."
+    (s1 "The interleavened stream")
+    (s1 "The interleaving stream")
+    (@to "stream"))
+  (if (stream-null? s1)
+      s2
+      (cons-stream (stream-car s1)
+                   (interleave s2 (stream-cdr s1)))))
+
+(define (pairs s t)
+  @("Generates the stream of pairs (S_i, T_j), where i <= j."
+    (s "The first stream to pair")
+    (t "The second stream to pair")
+    (@to "stream"))  
+  (cons-stream
+   (list (stream-car s) (stream-car t))
+   (interleave
+    (stream-map (lambda (x) (list (stream-car s) x))
+                (stream-cdr t))
+    (pairs (stream-cdr s) (stream-cdr t)))))
+

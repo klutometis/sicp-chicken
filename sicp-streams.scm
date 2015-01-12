@@ -7,6 +7,7 @@
    display-line
    display-stream
    euler-transform
+   integers
    make-tableau
    scale-stream
    stream-car

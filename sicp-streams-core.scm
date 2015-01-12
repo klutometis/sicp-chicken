@@ -141,3 +141,12 @@ transformation."
     (s "The sequence to accelerate, e.g. [[euler-transform]]")
     (@to "stream"))
   (stream-map stream-car (make-tableau transform s)))
+
+(define (integers-starting-from n)
+  @("Enumerates the integers starting from n streamingly."
+    (n "The number to start from"))
+  (cons-stream n (integers-starting-from (+ n 1))))
+
+(define integers
+  @("Enumerates the positive integers streamingly.")
+  (integers-starting-from 1))

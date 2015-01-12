@@ -417,6 +417,7 @@ Stream procedures from section 3.5
 * [[#display-line]]
 * [[#display-stream]]
 * [[#euler-transform]]
+* [[#integers]]
 * [[#make-tableau]]
 * [[#scale-stream]]
 * [[#stream-car]]
@@ -579,6 +580,18 @@ Accelerates some converging sequence.
 ; {{s}} : The sequence to accelerate, e.g. [[euler-transform]]
 <enscript highlight="scheme">(define (accelerated-sequence transform s)
   (stream-map stream-car (make-tableau transform s)))
+</enscript>
+==== {{integers-starting-from}}
+<procedure>(integers-starting-from n) → unspecified</procedure>
+Enumerates the integers starting from n streamingly.
+; {{n}} : The number to start from
+<enscript highlight="scheme">(define (integers-starting-from n)
+  (cons-stream n (integers-starting-from (+ n 1))))
+</enscript>
+==== {{integers}}
+<constant>integers → (integers-starting-from 1)</constant>
+Enumerates the positive integers streamingly.
+<enscript highlight="scheme">(define integers (integers-starting-from 1))
 </enscript>
 === About this egg
 

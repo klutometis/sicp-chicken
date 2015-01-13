@@ -2,22 +2,22 @@
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.8.8")
+ (extension-version "0.8.9")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.8.8")
+ (extension-version "0.8.9")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-concurrency
- (extension-version "0.8.8")
+ (extension-version "0.8.9")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-streams
- (extension-version "0.8.8")
+ (extension-version "0.8.9")
  compile-options: '(-X cock))
 
 (run-cock -o sicp.wiki

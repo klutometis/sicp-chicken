@@ -10,6 +10,7 @@
    integers
    interleave
    make-tableau
+   merge
    pairs
    scale-stream
    stream-car

@@ -173,3 +173,27 @@ transformation."
                 (stream-cdr t))
     (pairs (stream-cdr s) (stream-cdr t)))))
 
+(define (merge s1 s2)
+  @("Merges two ordered streams into one ordered result stream,
+eliminating repetitions."
+    (s1 "Mergend")
+    (s2 "Merger")
+    (@to "stream"))
+  (cond ((stream-null? s1) s2)
+        ((stream-null? s2) s1)
+        (else
+         (let ((s1car (stream-car s1))
+               (s2car (stream-car s2)))
+           (cond ((< s1car s2car)
+                  (cons-stream
+                   s1car
+                   (merge (stream-cdr s1) s2)))
+                 ((> s1car s2car)
+                  (cons-stream
+                   s2car
+                   (merge s1 (stream-cdr s2))))
+                 (else
+                  (cons-stream
+                   s1car
+                   (merge (stream-cdr s1)
+                          (stream-cdr s2)))))))))

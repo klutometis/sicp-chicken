@@ -420,6 +420,7 @@ Stream procedures from section 3.5
 * [[#integers]]
 * [[#interleave]]
 * [[#make-tableau]]
+* [[#merge]]
 * [[#pairs]]
 * [[#scale-stream]]
 * [[#stream-car]]
@@ -617,6 +618,26 @@ Generates the stream of pairs (S_i, T_j), where i <= j.
       (stream-map (lambda (x) (list (stream-car s) x)) (stream-cdr t))
       (pairs (stream-cdr s) (stream-cdr t)))))
 </enscript>
+==== {{merge}}
+<procedure>(merge s1 s2) → stream</procedure>
+Merges two ordered streams into one ordered result stream,
+eliminating repetitions.
+; {{s1}} : Mergend
+; {{s2}} : Merger
+<enscript highlight="scheme">(define (merge s1 s2)
+  (cond ((stream-null? s1) s2)
+        ((stream-null? s2) s1)
+        (else
+         (let ((s1car (stream-car s1)) (s2car (stream-car s2)))
+           (cond ((< s1car s2car)
+                  (cons-stream s1car (merge (stream-cdr s1) s2)))
+                 ((> s1car s2car)
+                  (cons-stream s2car (merge s1 (stream-cdr s2))))
+                 (else
+                  (cons-stream
+                    s1car
+                    (merge (stream-cdr s1) (stream-cdr s2)))))))))
+</enscript>
 === About this egg
 
 ==== Author
@@ -669,6 +690,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.5|0.8.5]] : Add scale-stream.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.6|0.8.6]] : Add accelerated sequences.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.7|0.8.7]] : Add integers.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.8|0.8.8]] : Add interleave and pairs.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

@@ -144,7 +144,8 @@ transformation."
 
 (define (integers-starting-from n)
   @("Enumerates the integers starting from n streamingly."
-    (n "The number to start from"))
+    (n "The number to start from")
+    (@to "stream"))
   (cons-stream n (integers-starting-from (+ n 1))))
 
 (define integers

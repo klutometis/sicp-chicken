@@ -419,6 +419,7 @@ Stream procedures from section 3.5
 * [[#euler-transform]]
 * [[#integers]]
 * [[#interleave]]
+* [[#list->stream]]
 * [[#make-tableau]]
 * [[#merge]]
 * [[#pairs]]
@@ -585,7 +586,7 @@ Accelerates some converging sequence.
   (stream-map stream-car (make-tableau transform s)))
 </enscript>
 ==== {{integers-starting-from}}
-<procedure>(integers-starting-from n) → unspecified</procedure>
+<procedure>(integers-starting-from n) → stream</procedure>
 Enumerates the integers starting from n streamingly.
 ; {{n}} : The number to start from
 <enscript highlight="scheme">(define (integers-starting-from n)
@@ -637,6 +638,15 @@ eliminating repetitions.
                   (cons-stream
                     s1car
                     (merge (stream-cdr s1) (stream-cdr s2)))))))))
+</enscript>
+==== {{list->stream}}
+<procedure>(list->stream list) → stream</procedure>
+Takes a list and streamifies it.
+; {{list}} : The list to streamify
+<enscript highlight="scheme">(define (list->stream list)
+  (if (null? list)
+    stream-null
+    (cons-stream (car list) (list->stream (cdr list)))))
 </enscript>
 === About this egg
 
@@ -691,6 +701,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.6|0.8.6]] : Add accelerated sequences.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.7|0.8.7]] : Add integers.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.8|0.8.8]] : Add interleave and pairs.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.9|0.8.9]] : Add merge.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

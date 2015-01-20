@@ -9,6 +9,7 @@
    euler-transform
    integers
    interleave
+   list->stream
    make-tableau
    merge
    pairs

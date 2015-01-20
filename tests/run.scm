@@ -38,3 +38,6 @@
       (stream->list
        (cons-stream 1 (cons-stream 2 (cons-stream 3 stream-null)))
        2))
+
+(test '(1 2 3)
+      (stream->list (list->stream '(1 2 3))))

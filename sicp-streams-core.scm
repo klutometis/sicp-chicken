@@ -198,3 +198,11 @@ eliminating repetitions."
                    s1car
                    (merge (stream-cdr s1)
                           (stream-cdr s2)))))))))
+
+(define (list->stream list)
+  @("Takes a list and streamifies it."
+    (list "The list to streamify")
+    (@to "stream"))
+  (if (null? list) stream-null
+      (cons-stream (car list) (list->stream (cdr list)))))
+

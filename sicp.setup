@@ -2,22 +2,27 @@
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.8.10")
+ (extension-version "0.9")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.8.10")
+ (extension-version "0.9")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-concurrency
- (extension-version "0.8.10")
+ (extension-version "0.9")
  compile-options: '(-X cock))
 
 (setup-shared-extension-module
  'sicp-streams
- (extension-version "0.8.10")
+ (extension-version "0.9")
+ compile-options: '(-X cock))
+
+(setup-shared-extension-module
+ 'sicp-eval
+ (extension-version "0.9")
  compile-options: '(-X cock))
 
 (run-cock -o sicp.wiki
@@ -35,4 +40,6 @@
           sicp-concurrency.scm
           sicp-concurrency-core.scm
           sicp-streams.scm
-          sicp-streams-core.scm)
+          sicp-streams-core.scm
+          sicp-eval.scm
+          sicp-eval-core.scm)

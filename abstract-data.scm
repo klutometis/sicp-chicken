@@ -3,6 +3,7 @@
 (define (put op type proc)
   (hash-table-set! (dispatch-table) (cons op type) proc))
 
+;;; TODO: Get should take an optional default.
 (define (get op type)
   (hash-table-ref/default (dispatch-table) (cons op type) #f))
 

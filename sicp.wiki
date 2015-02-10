@@ -405,7 +405,7 @@ Create a serializer and run some thunks.
  (let ((s (make-serializer)) (x 10))
    (parallel-execute (s (lambda () (set! x (* x x))))
                      (s (lambda () (set! x (+ x 1))))))
-  => #<procedure (f_126)>
+  => #<procedure (f_307)>
  
 === sicp-streams
 ==== {{sicp-streams}}
@@ -648,6 +648,87 @@ Takes a list and streamifies it.
     stream-null
     (cons-stream (car list) (list->stream (cdr list)))))
 </enscript>
+==== {{sicp-eval}}
+'''[module]''' {{sicp-eval}}
+
+Evaluation procedures from section 4.1
+* [[#application?]]
+* [[#apply*]]
+* [[#assignment?]]
+* [[#begin-actions]]
+* [[#begin?]]
+* [[#cond?]]
+* [[#cond->if]]
+* [[#definition?]]
+* [[#driver-loop]]
+* [[#eval*]]
+* [[#eval-assignment]]
+* [[#eval-definition]]
+* [[#eval-if]]
+* [[#eval-sequence]]
+* [[#if?]]
+* [[#first-operand]]
+* [[#lambda?]]
+* [[#lambda-body]]
+* [[#lambda-parameters]]
+* [[#list-of-values]]
+* [[#lookup-variable-value]]
+* [[#make-procedure]]
+* [[#no-operands?]]
+* [[#operands]]
+* [[#operator]]
+* [[#primitive-procedures]]
+* [[#quoted?]]
+* [[#rest-operands]]
+* [[#self-evaluating?]]
+* [[#setup-environment]]
+* [[#tagged-list?]]
+* [[#text-of-quotation]]
+* [[#the-global-environment]]
+* [[#variable?]]
+==== {{apply*}}
+<procedure>(apply* procedure arguments) → object</procedure>
+The SICP definition of {{apply}}; had to rename it {{apply*}},
+because the redefinition of {{apply}} wrought havok on the
+module-system.
+; {{procedure}} : The procedure to apply
+; {{arguments}} : The arguments to which to apply it
+<enscript highlight="scheme">(define (apply* procedure arguments)
+  (cond ((primitive-procedure? procedure)
+         (apply-primitive-procedure procedure arguments))
+        ((compound-procedure? procedure)
+         (eval-sequence
+           (procedure-body procedure)
+           (extend-environment
+             (procedure-parameters procedure)
+             arguments
+             (procedure-environment procedure))))
+        (else (error "Unknown procedure type: APPLY*" procedure))))
+</enscript>
+==== {{eval*}}
+<procedure>(eval* exp env) → object</procedure>
+The SICP implementation of {{eval}}; had to rename it {{eval*}},
+because the redefinition of {{eval}} wrought havok on the
+module-system.
+; {{exp}} : The expression to evaluate
+; {{env}} : The environment to evaluate it in
+<enscript highlight="scheme">(define (eval* exp env)
+  (cond ((self-evaluating? exp) exp)
+        ((variable? exp) (lookup-variable-value exp env))
+        ((quoted? exp) (text-of-quotation exp))
+        ((assignment? exp) (eval-assignment exp env))
+        ((definition? exp) (eval-definition exp env))
+        ((if? exp) (eval-if exp env))
+        ((lambda? exp)
+         (make-procedure (lambda-parameters exp) (lambda-body exp) env))
+        ((begin? exp) (eval-sequence (begin-actions exp) env))
+        ((cond? exp) (eval* (cond->if exp) env))
+        ((application? exp)
+         (apply*
+           (eval* (operator exp) env)
+           (list-of-values (operands exp) env)))
+        (else (error "Unknown expression type: EVAL" exp))))
+</enscript>
 === About this egg
 
 ==== Author
@@ -702,6 +783,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.7|0.8.7]] : Add integers.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.8|0.8.8]] : Add interleave and pairs.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.9|0.8.9]] : Add merge.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.10|0.8.10]] : Add list->stream.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

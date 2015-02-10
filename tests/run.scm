@@ -1,4 +1,4 @@
-(use sicp sicp-streams test)
+(use sicp sicp-eval sicp-streams test)
 
 (test
  "draw-painter-as-svg"
@@ -41,3 +41,10 @@
 
 (test '(1 2 3)
       (stream->list (list->stream '(1 2 3))))
+
+(test 5
+      (parameterize ((primitive-procedures
+                      (cons (list '+ +) (primitive-procedures))))
+        (eval* '(+ 2 3) (setup-environment))))
+
+(test-exit)

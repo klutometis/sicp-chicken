@@ -648,6 +648,7 @@ Takes a list and streamifies it.
     stream-null
     (cons-stream (car list) (list->stream (cdr list)))))
 </enscript>
+=== sicp-eval
 ==== {{sicp-eval}}
 '''[module]''' {{sicp-eval}}
 
@@ -659,6 +660,10 @@ Evaluation procedures from section 4.1
 * [[#begin?]]
 * [[#cond?]]
 * [[#cond->if]]
+* [[#cond-actions]]
+* [[#cond-clauses]]
+* [[#cond-else-clause?]]
+* [[#cond-predicate]]
 * [[#definition?]]
 * [[#driver-loop]]
 * [[#eval*]]
@@ -673,6 +678,7 @@ Evaluation procedures from section 4.1
 * [[#lambda-parameters]]
 * [[#list-of-values]]
 * [[#lookup-variable-value]]
+* [[#make-if]]
 * [[#make-procedure]]
 * [[#no-operands?]]
 * [[#operands]]
@@ -681,6 +687,7 @@ Evaluation procedures from section 4.1
 * [[#quoted?]]
 * [[#rest-operands]]
 * [[#self-evaluating?]]
+* [[#sequence->exp]]
 * [[#setup-environment]]
 * [[#tagged-list?]]
 * [[#text-of-quotation]]
@@ -784,6 +791,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.8|0.8.8]] : Add interleave and pairs.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.9|0.8.9]] : Add merge.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.10|0.8.10]] : Add list->stream.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9|0.9]] : Add the evaluator.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

@@ -693,6 +693,7 @@ Evaluation procedures from section 4.1
 * [[#text-of-quotation]]
 * [[#the-global-environment]]
 * [[#variable?]]
+* [[#with-primitive-procedures]]
 ==== {{apply*}}
 <procedure>(apply* procedure arguments) → object</procedure>
 The SICP definition of {{apply}}; had to rename it {{apply*}},
@@ -736,6 +737,23 @@ module-system.
            (list-of-values (operands exp) env)))
         (else (error "Unknown expression type: EVAL" exp))))
 </enscript>
+==== {{with-primitive-procedures}}
+<procedure>(with-primitive-procedures procedures receive-env) → object</procedure>
+Installs {{procedures}}, creates a default environment and calls {{receive-env}}
+with the default environment; this is useful for
+testing new syntax, etc.
+; {{procedures}} : A key-value list of procedure-names and their primitive counter-part
+; {{receive-env}} : A procedure which takes a fresh environment
+<enscript highlight="scheme">(define (with-primitive-procedures procedures receive-env)
+  (parameterize
+    ((primitive-procedures (append procedures (primitive-procedures))))
+    (let ((env (setup-environment))) (receive-env env))))
+</enscript>
+===== Examples
+Applying primitive addition
+ (with-primitive-procedures `((+ ,+)) (lambda (env) (eval* '(+ 2 3) env)))
+  => 5
+ 
 === About this egg
 
 ==== Author
@@ -792,6 +810,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.9|0.8.9]] : Add merge.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.10|0.8.10]] : Add list->stream.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9|0.9]] : Add the evaluator.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.1|0.9.1]] : Actually add the eval-files.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

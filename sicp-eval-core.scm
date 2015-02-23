@@ -281,3 +281,19 @@ module-system."
                      (procedure-body object)
                      '<procedure-env>))
       (display object)))
+
+(define (with-primitive-procedures procedures receive-env)
+  @("Installs {{procedures}}, creates a default environment and calls {{receive-env}}
+with the default environment; this is useful for
+testing new syntax, etc."
+    (procedures "A key-value list of procedure-names and their
+primitive counter-part")
+    (receive-env "A procedure which takes a fresh environment")
+    (@to "object")
+    (@example "Applying primitive addition"
+              (with-primitive-procedures `((+ ,+))
+                (lambda (env) (eval* '(+ 2 3) env)))))
+  (parameterize ((primitive-procedures
+                  (append procedures (primitive-procedures))))
+    (let ((env (setup-environment)))
+      (receive-env env))))

@@ -41,7 +41,8 @@
    tagged-list?
    text-of-quotation
    the-global-environment
-   variable?)
+   variable?
+   with-primitive-procedures)
   (import chicken scheme)
   (use debug)
   (include "sicp-eval-core.scm"))

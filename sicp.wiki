@@ -653,6 +653,7 @@ Takes a list and streamifies it.
 '''[module]''' {{sicp-eval}}
 
 Evaluation procedures from section 4.1
+* [[#add-binding-to-frame!]]
 * [[#application?]]
 * [[#apply*]]
 * [[#assignment?]]
@@ -664,13 +665,21 @@ Evaluation procedures from section 4.1
 * [[#cond-clauses]]
 * [[#cond-else-clause?]]
 * [[#cond-predicate]]
+* [[#define-variable!]]
 * [[#definition?]]
+* [[#definition-variable]]
+* [[#definition-value]]
 * [[#driver-loop]]
+* [[#enclosing-environment]]
 * [[#eval*]]
 * [[#eval-assignment]]
 * [[#eval-definition]]
 * [[#eval-if]]
 * [[#eval-sequence]]
+* [[#extend-environment]]
+* [[#first-frame]]
+* [[#frame-values]]
+* [[#frame-variables]]
 * [[#if?]]
 * [[#first-operand]]
 * [[#lambda?]]
@@ -679,18 +688,22 @@ Evaluation procedures from section 4.1
 * [[#list-of-values]]
 * [[#lookup-variable-value]]
 * [[#make-if]]
+* [[#make-frame]]
 * [[#make-procedure]]
 * [[#no-operands?]]
 * [[#operands]]
 * [[#operator]]
 * [[#primitive-procedures]]
+* [[#procedure-body]]
 * [[#quoted?]]
 * [[#rest-operands]]
 * [[#self-evaluating?]]
 * [[#sequence->exp]]
+* [[#set-variable-value!]]
 * [[#setup-environment]]
 * [[#tagged-list?]]
 * [[#text-of-quotation]]
+* [[#the-empty-environment]]
 * [[#the-global-environment]]
 * [[#variable?]]
 * [[#with-primitive-procedures]]
@@ -811,6 +824,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.8.10|0.8.10]] : Add list->stream.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9|0.9]] : Add the evaluator.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.1|0.9.1]] : Actually add the eval-files.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.2|0.9.2]] : Add with-primitive-procedures.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

@@ -2,7 +2,8 @@
 
 (module sicp-eval
   @("Evaluation procedures from section 4.1")
-  (application?
+  (add-binding-to-frame!
+   application?
    apply*
    assignment?
    begin-actions
@@ -13,13 +14,21 @@
    cond-clauses
    cond-else-clause?
    cond-predicate
+   define-variable!
    definition?
+   definition-variable
+   definition-value
    driver-loop
+   enclosing-environment
    eval*
    eval-assignment
    eval-definition
    eval-if
    eval-sequence
+   extend-environment
+   first-frame
+   frame-values
+   frame-variables
    if?
    first-operand
    lambda?
@@ -28,18 +37,22 @@
    list-of-values
    lookup-variable-value
    make-if
+   make-frame
    make-procedure
    no-operands?
    operands
    operator
    primitive-procedures
+   procedure-body
    quoted?
    rest-operands
    self-evaluating?
    sequence->exp
-   setup-environment
+   set-variable-value!
+   setup-environment   
    tagged-list?
    text-of-quotation
+   the-empty-environment
    the-global-environment
    variable?
    with-primitive-procedures)

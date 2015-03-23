@@ -8,6 +8,7 @@
    assignment?
    begin-actions
    begin?
+   compound-procedure?
    cond?
    cond->if
    cond-actions

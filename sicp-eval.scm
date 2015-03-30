@@ -47,6 +47,8 @@
    primitive-procedure?
    primitive-procedures
    procedure-body
+   procedure-environment
+   procedure-parameters
    quoted?
    rest-operands
    self-evaluating?

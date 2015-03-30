@@ -656,6 +656,7 @@ Evaluation procedures from section 4.1
 * [[#add-binding-to-frame!]]
 * [[#application?]]
 * [[#apply*]]
+* [[#apply-primitive-procedure]]
 * [[#assignment?]]
 * [[#begin-actions]]
 * [[#begin?]]
@@ -694,6 +695,7 @@ Evaluation procedures from section 4.1
 * [[#no-operands?]]
 * [[#operands]]
 * [[#operator]]
+* [[#primitive-procedure?]]
 * [[#primitive-procedures]]
 * [[#procedure-body]]
 * [[#quoted?]]
@@ -827,6 +829,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.1|0.9.1]] : Actually add the eval-files.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.2|0.9.2]] : Add with-primitive-procedures.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.3|0.9.3]] : Export some functions.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.4|0.9.4]] : Export `compound-procedure?'.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

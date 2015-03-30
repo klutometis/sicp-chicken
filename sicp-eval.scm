@@ -5,6 +5,7 @@
   (add-binding-to-frame!
    application?
    apply*
+   apply-primitive-procedure
    assignment?
    begin-actions
    begin?
@@ -43,6 +44,7 @@
    no-operands?
    operands
    operator
+   primitive-procedure?
    primitive-procedures
    procedure-body
    quoted?

@@ -658,6 +658,8 @@ Evaluation procedures from section 4.1
 * [[#apply*]]
 * [[#apply-primitive-procedure]]
 * [[#assignment?]]
+* [[#assignment-value]]
+* [[#assignment-variable]]
 * [[#begin-actions]]
 * [[#begin?]]
 * [[#compound-procedure?]]
@@ -679,10 +681,14 @@ Evaluation procedures from section 4.1
 * [[#eval-if]]
 * [[#eval-sequence]]
 * [[#extend-environment]]
+* [[#false?]]
 * [[#first-frame]]
 * [[#frame-values]]
 * [[#frame-variables]]
 * [[#if?]]
+* [[#if-alternative]]
+* [[#if-consequent]]
+* [[#if-predicate]]
 * [[#first-operand]]
 * [[#lambda?]]
 * [[#lambda-body]]
@@ -710,6 +716,7 @@ Evaluation procedures from section 4.1
 * [[#text-of-quotation]]
 * [[#the-empty-environment]]
 * [[#the-global-environment]]
+* [[#true?]]
 * [[#variable?]]
 * [[#with-primitive-procedures]]
 ==== {{apply*}}
@@ -833,6 +840,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.3|0.9.3]] : Export some functions.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.4|0.9.4]] : Export `compound-procedure?'.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.5|0.9.5]] : Export functions required for analysis.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.6|0.9.6]] : Also export these for analysis.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

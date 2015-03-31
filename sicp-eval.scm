@@ -7,6 +7,8 @@
    apply*
    apply-primitive-procedure
    assignment?
+   assignment-value
+   assignment-variable
    begin-actions
    begin?
    compound-procedure?
@@ -28,10 +30,14 @@
    eval-if
    eval-sequence
    extend-environment
+   false?
    first-frame
    frame-values
    frame-variables
    if?
+   if-alternative
+   if-consequent
+   if-predicate
    first-operand
    lambda?
    lambda-body
@@ -59,6 +65,7 @@
    text-of-quotation
    the-empty-environment
    the-global-environment
+   true?
    variable?
    with-primitive-procedures)
   (import chicken scheme)

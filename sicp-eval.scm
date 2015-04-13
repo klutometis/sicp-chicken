@@ -32,6 +32,7 @@
    eval-sequence
    extend-environment
    false?
+   first-exp
    first-frame
    frame-values
    frame-variables
@@ -43,6 +44,7 @@
    lambda?
    lambda-body
    lambda-parameters
+   last-exp?
    list-of-values
    lookup-variable-value
    make-if
@@ -58,6 +60,7 @@
    procedure-parameters
    prompt-for-input
    quoted?
+   rest-exps
    rest-operands
    self-evaluating?
    sequence->exp

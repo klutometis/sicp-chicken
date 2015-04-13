@@ -654,6 +654,7 @@ Takes a list and streamifies it.
 
 Evaluation procedures from section 4.1
 * [[#add-binding-to-frame!]]
+* [[#announce-output]]
 * [[#application?]]
 * [[#apply*]]
 * [[#apply-primitive-procedure]]
@@ -706,6 +707,7 @@ Evaluation procedures from section 4.1
 * [[#procedure-body]]
 * [[#procedure-environment]]
 * [[#procedure-parameters]]
+* [[#prompt-for-input]]
 * [[#quoted?]]
 * [[#rest-operands]]
 * [[#self-evaluating?]]
@@ -717,6 +719,7 @@ Evaluation procedures from section 4.1
 * [[#the-empty-environment]]
 * [[#the-global-environment]]
 * [[#true?]]
+* [[#user-print]]
 * [[#variable?]]
 * [[#with-primitive-procedures]]
 ==== {{apply*}}
@@ -841,6 +844,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.4|0.9.4]] : Export `compound-procedure?'.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.5|0.9.5]] : Export functions required for analysis.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.6|0.9.6]] : Also export these for analysis.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.7|0.9.7]] : Export a few more things.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

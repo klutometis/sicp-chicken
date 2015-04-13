@@ -3,6 +3,7 @@
 (module sicp-eval
   @("Evaluation procedures from section 4.1")
   (add-binding-to-frame!
+   announce-output
    application?
    apply*
    apply-primitive-procedure
@@ -55,6 +56,7 @@
    procedure-body
    procedure-environment
    procedure-parameters
+   prompt-for-input
    quoted?
    rest-operands
    self-evaluating?
@@ -66,6 +68,7 @@
    the-empty-environment
    the-global-environment
    true?
+   user-print
    variable?
    with-primitive-procedures)
   (import chicken scheme)

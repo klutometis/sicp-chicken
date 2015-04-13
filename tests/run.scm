@@ -47,4 +47,9 @@
                       (cons (list '+ +) (primitive-procedures))))
         (eval* '(+ 2 3) (setup-environment))))
 
+(call-with-values (lambda () (time+values (+ 2 2)))
+  (lambda (time value)
+    (test-assert (number? time))
+    (test 4 value)))
+
 (test-exit)

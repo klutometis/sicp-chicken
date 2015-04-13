@@ -6,9 +6,8 @@ Support for SICP
 ==== {{sicp}}
 '''[module]''' {{sicp}}
 
-SICP is a grab-bag of different procedures from sections 1
-through 3.3.4, before we started modularizing them (starting from
-3.3.5: Constraints).
+Evaluates {{expressions}} and returns the time required for
+evaluation plus the return values of evaluating {{expressions}}.
 * [[#=number?]]
 * [[#accumulate]]
 * [[#add]]
@@ -136,6 +135,7 @@ through 3.3.4, before we started modularizing them (starting from
 * [[#symbols]]
 * [[#terminates?]]
 * [[#the-agenda]]
+* [[#time+values]]
 * [[#timeout-value?]]
 * [[#transform-painter]]
 * [[#type-tag]]
@@ -845,6 +845,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.5|0.9.5]] : Export functions required for analysis.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.6|0.9.6]] : Also export these for analysis.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.7|0.9.7]] : Export a few more things.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.8|0.9.8]] : Export more procedures.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

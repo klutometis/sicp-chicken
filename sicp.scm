@@ -131,6 +131,7 @@ through 3.3.4, before we started modularizing them (starting from
    symbols
    terminates?
    the-agenda
+   time+values
    timeout-value?
    transform-painter
    type-tag
@@ -243,4 +244,19 @@ through 3.3.4, before we started modularizing them (starting from
   (define (fast-prime? n times)
     (cond ((= times 0) #t)
           ((fermat-test n) (fast-prime? n (- times 1)))
-          (else #f))))
+          (else #f)))
+
+  (define-syntax time+values
+    @("Evaluates {{expressions}} and returns the time required for
+evaluation plus the return values of evaluating {{expressions}}."
+      (expressions "The expressions to evaluate")
+      (@to "{number, [object, [object, ...]]}"))
+    (ir-macro-transformer
+     (lambda (expression rename inject)
+       `(begin
+          (##sys#start-timer)
+          (call-with-values
+              (lambda () ,@(cdr expression))
+            (lambda return-values
+              (let ((time (vector-ref (##sys#stop-timer) 0)))
+                (apply values (cons time return-values))))))))))

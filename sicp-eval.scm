@@ -49,6 +49,7 @@
    lookup-variable-value
    make-if
    make-frame
+   make-lambda
    make-procedure
    no-operands?
    operands

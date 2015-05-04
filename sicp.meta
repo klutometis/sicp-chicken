@@ -5,7 +5,7 @@
  (repo "https://github.com/klutometis/sicp-chicken")
  (category data)
  (license "BSD")
- (depends cock
+ (depends (hahn "0.9.3")
           htmlprag
           matchable
           setup-helper

@@ -1,7 +1,7 @@
 @(heading "SICP")
 
 (module sicp
-  @("SICP is a grab-bag of different procedures from sections 1
+  @(text "SICP is a grab-bag of different procedures from sections 1
 through 3.3.4, before we started modularizing them (starting from
 3.3.5: Constraints).")
   (=number?
@@ -145,8 +145,8 @@ through 3.3.4, before we started modularizing them (starting from
    xor
    ycor-vect)
   (import chicken data-structures extras scheme)
-  (use cock
-       files
+  (use files
+       (only hahn at)
        (only htmlprag write-shtml-as-html)
        shell
        srfi-18

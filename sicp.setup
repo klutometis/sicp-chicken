@@ -1,31 +1,31 @@
-(use cock setup-helper-mod)
+(use hahn setup-helper-mod)
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.9.11")
- compile-options: '(-X cock))
+ (extension-version "0.9.12")
+ compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.9.11")
- compile-options: '(-X cock))
+ (extension-version "0.9.12")
+ compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-concurrency
- (extension-version "0.9.11")
- compile-options: '(-X cock))
+ (extension-version "0.9.12")
+ compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-streams
- (extension-version "0.9.11")
- compile-options: '(-X cock))
+ (extension-version "0.9.12")
+ compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-eval
- (extension-version "0.9.11")
- compile-options: '(-X cock))
+ (extension-version "0.9.12")
+ compile-options: '(-X hahn))
 
-(run-cock -o sicp.wiki
+(run-hahn -o sicp.wiki
           sicp.scm
           abstract-data.scm
           arithmetic.scm

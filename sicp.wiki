@@ -801,7 +801,7 @@ Applying primitive addition
 ==== License
 BSD
 ==== Dependencies
-* [[(hahn 0.9.3)]]
+* [[hahn]]
 * [[htmlprag]]
 * [[matchable]]
 * [[setup-helper]]
@@ -858,6 +858,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.9|0.9.9]] : Add time+values.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.10|0.9.10]] : Export procedures.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.11|0.9.11]] : Export make-lambda.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.12|0.9.12]] : Use hahn.
 ==== Colophon
 
 Documented by [[/egg/hahn|hahn]].

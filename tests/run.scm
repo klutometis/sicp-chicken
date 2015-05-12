@@ -74,4 +74,17 @@
     (test "W is 10." 10 (eval* '(values w) env))
     (test "Id has been called twice." 2 (eval* 'count env))))
 
+(use sicp-eval-amb)
+
+(with-require `((+ ,+) (prime? ,prime?) (list ,list))
+              (lambda (env)
+                (ambeval* '(define (prime-sum-pair list1 list2)
+                             (let ((a (an-element-of list1))
+                                   (b (an-element-of list2)))
+                               (require (prime? (+ a b)))
+                               (list a b))) env)
+                (test "Ambeval with prime-sum-pair"
+                      '(3 20)
+                      (ambeval-n '(prime-sum-pair '(1 3 5 8) '(20 35 110)) env 1))))
+
 (test-exit)

@@ -791,6 +791,214 @@ Applying primitive addition
  (with-primitive-procedures `((+ ,+)) (lambda (env) (eval* '(+ 2 3) env)))
   => 5
  
+=== sicp-eval-anal
+==== {{sicp-eval-anal}}
+'''[module]''' {{sicp-eval-anal}}
+
+The analyzing evaluator from section 4.1.7
+* [[#anal-eval*]]
+* [[#analyze]]
+* [[#analyze-application]]
+* [[#analyze-assignment]]
+* [[#analyze-definition]]
+* [[#analyze-if]]
+* [[#analyze-lambda]]
+* [[#analyze-quoted]]
+* [[#analyze-self-evaluating]]
+* [[#analyze-sequence]]
+* [[#analyze-variable]]
+* [[#execute-application]]
+==== {{anal-eval*}}
+<procedure>(anal-eval* exp env) → object</procedure>
+Anal-eval* analyzes an expression before evaluating it, storing
+the syntactic analysis in a thunk for re-use.
+; {{exp}} : The expression to analyze and evaluate
+; {{env}} : The environment to analyze and evaluate it in
+<enscript highlight="scheme">(define (anal-eval* exp env) ((analyze exp) env))
+</enscript>
+==== {{analyze}}
+<procedure>(analyze exp) → thunk</procedure>
+Analyze analyzes the expression, returning a thunk that
+represents the work to be done.
+; {{exp}} : The expression to analyze
+<enscript highlight="scheme">(define (analyze exp)
+  (cond ((self-evaluating? exp) (analyze-self-evaluating exp))
+        ((quoted? exp) (analyze-quoted exp))
+        ((variable? exp) (analyze-variable exp))
+        ((assignment? exp) (analyze-assignment exp))
+        ((definition? exp) (analyze-definition exp))
+        ((if? exp) (analyze-if exp))
+        ((lambda? exp) (analyze-lambda exp))
+        ((begin? exp) (analyze-sequence (begin-actions exp)))
+        ((cond? exp) (analyze (cond->if exp)))
+        ((application? exp) (analyze-application exp))
+        (else (error "Unknown expression type: ANALYZE" exp))))
+</enscript>
+=== sicp-eval-lazy
+==== {{sicp-eval-lazy}}
+'''[module]''' {{sicp-eval-lazy}}
+
+The lazy evaluator from section 4.2.2
+* [[#actual-value]]
+* [[#apply*]]
+* [[#delay-it]]
+* [[#driver-loop]]
+* [[#eval*]]
+* [[#eval-if]]
+* [[#evaluated-thunk?]]
+* [[#force-it]]
+* [[#input-prompt]]
+* [[#list-of-arg-values]]
+* [[#list-of-delayed-args]]
+* [[#output-prompt]]
+* [[#thunk-env]]
+* [[#thunk-exp]]
+* [[#thunk-value]]
+* [[#thunk?]]
+==== {{eval*}}
+<procedure>(eval* exp env) → object</procedure>
+Evaluates an expression lazily, given an environment.
+; {{exp}} : The expression to evaluate
+; {{env}} : The environment to evaluate it in
+<enscript highlight="scheme">(define (eval* exp env)
+  (cond ((self-evaluating? exp) exp)
+        ((variable? exp) (lookup-variable-value exp env))
+        ((quoted? exp) (text-of-quotation exp))
+        ((assignment? exp) (eval-assignment exp env))
+        ((definition? exp) (eval-definition exp env))
+        ((if? exp) (eval-if exp env))
+        ((lambda? exp)
+         (make-procedure (lambda-parameters exp) (lambda-body exp) env))
+        ((begin? exp) (eval-sequence (begin-actions exp) env))
+        ((cond? exp) (eval* (cond->if exp) env))
+        ((application? exp)
+         (apply* (actual-value (operator exp) env) (operands exp) env))
+        (else (error "Unknown expression type: EVAL*" exp))))
+</enscript>
+==== {{with-lazy-lists}}
+<procedure>(with-lazy-lists procedures receive-env) → object</procedure>
+Sets up an environment where lazy {{cons}}, {{car}} and {{cdr}}
+have been defined.
+
+{{With-lazy-lists}} is a wrapper around {{with-primitive-procedures}}.
+; {{procedures}} : A key-value list of names and their primitive procedures in the underlying Scheme.
+; {{receive-env}} : A lambda of one value that takes the prepared environment
+<enscript highlight="scheme">(define (with-lazy-lists procedures receive-env)
+  (with-primitive-procedures
+    (append procedures `((= ,=) (- ,-)))
+    (lambda (env)
+      (eval* '(define (cons x y) (lambda (m) (m x y))) env)
+      (eval* '(define (car z) (z (lambda (p q) p))) env)
+      (eval* '(define (cdr z) (z (lambda (p q) q))) env)
+      (eval* '(define (list-ref items n)
+                (if (= n 0) (car items) (list-ref (cdr items) (- n 1))))
+             env)
+      (eval* '(define (map proc items)
+                (if (null? items)
+                  '()
+                  (cons (proc (car items)) (map proc (cdr items)))))
+             env)
+      (receive-env env))))
+</enscript>
+=== sicp-eval-amb
+==== {{sicp-eval-amb}}
+'''[module]''' {{sicp-eval-amb}}
+
+The non-deterministic backtracking evaluator from section 4.3.3
+* [[#amb-choices]]
+* [[#amb?]]
+* [[#ambeval]]
+* [[#ambeval*]]
+* [[#ambeval-n]]
+* [[#analyze]]
+* [[#analyze-amb]]
+* [[#analyze-application]]
+* [[#analyze-assignment]]
+* [[#analyze-definition]]
+* [[#analyze-if]]
+* [[#analyze-lambda]]
+* [[#analyze-let]]
+* [[#analyze-quoted]]
+* [[#analyze-self-evaluating]]
+* [[#analyze-sequence]]
+* [[#analyze-variable]]
+* [[#driver-loop]]
+* [[#execute-application]]
+* [[#failure]]
+* [[#failure?]]
+* [[#get-args]]
+* [[#input-prompt]]
+* [[#let->combination]]
+* [[#let-body]]
+* [[#let-clause-expression]]
+* [[#let-clause-variable]]
+* [[#let-clause?]]
+* [[#let-clauses]]
+* [[#output-prompt]]
+* [[#success?]]
+* [[#with-require]]
+==== {{ambeval}}
+<procedure>(ambeval exp env succeed fail) → object</procedure>
+Evaluates the expression using backtracking search.
+; {{exp}} : The expression to evaluate
+; {{env}} : The environment to evaluate it in
+; {{succeed}} : The success-continuation
+; {{fail}} : The failure-continuation
+<enscript highlight="scheme">(define (ambeval exp env succeed fail) ((analyze exp) env succeed fail))
+</enscript>
+==== {{ambeval-n}}
+<procedure>(ambeval-n exp env n) → object</procedure>
+Amb-evaluates the expression, invoking the success-continuation {{n}} 
+times or until failure.
+; {{exp}} : The expression to evaluate
+; {{env}} : The environment to evaluate it in
+; {{n}} : The maximum number of times to invoke the success continuation
+<enscript highlight="scheme">(define (ambeval-n exp env n)
+  (ambeval
+    exp
+    env
+    (lambda (val next-alternative)
+      (set! n (- n 1))
+      (if (zero? n) val (next-alternative)))
+    (lambda () failure)))
+</enscript>
+==== {{ambeval*}}
+<procedure>(ambeval* exp env) → object</procedure>
+Amb-evaluates the expression until failure, return the last
+success-value; or failure, if it never succeeds.
+; {{exp}} : The expression to evaluate
+; {{env}} : The environment to evaluate it in
+<enscript highlight="scheme">(define (ambeval* exp env)
+  (let ((last-value failure))
+    (ambeval
+      exp
+      env
+      (lambda (val next-alternative) (set! last-value val) (next-alternative))
+      (lambda () last-value))))
+</enscript>
+==== {{with-require}}
+<procedure>(with-require procedures receive-env) → object</procedure>
+Installs {{require}},{{an-element-of}},{{an-integer-starting-from}} 
+in the environment in addition to the primitive procedures enumerated 
+in {{procedures}}; then calls {{receive-env}} with the configured environment.
+; {{procedures}} : A key-value list of primitive procedure-names and their definitions
+; {{receive-env}} : A lambda of one value that is called with the prepared environment
+<enscript highlight="scheme">(define (with-require procedures receive-env)
+  (with-primitive-procedures
+    (append procedures `((not ,not)))
+    (lambda (env)
+      (ambeval* '(define (require p) (if (not p) (amb) 'success)) env)
+      (ambeval*
+        '(define (an-element-of items)
+           (require (not (null? items)))
+           (amb (car items) (an-element-of (cdr items))))
+        env)
+      (ambeval*
+        '(define (an-integer-starting-from n)
+           (amb n (an-integer-starting-from (+ n 1))))
+        env)
+      (receive-env env))))
+</enscript>
 === About this egg
 
 ==== Author

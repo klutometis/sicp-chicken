@@ -57,4 +57,10 @@
           sicp-streams.scm
           sicp-streams-core.scm
           sicp-eval.scm
-          sicp-eval-core.scm)
+          sicp-eval-core.scm
+          sicp-eval-anal.scm
+          sicp-eval-anal-core.scm
+          sicp-eval-lazy.scm
+          sicp-eval-lazy-core.scm
+          sicp-eval-amb.scm
+          sicp-eval-amb-core.scm)

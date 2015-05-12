@@ -2,27 +2,32 @@
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.9.12")
+ (extension-version "0.10")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.9.12")
+ (extension-version "0.10")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-concurrency
- (extension-version "0.9.12")
+ (extension-version "0.10")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-streams
- (extension-version "0.9.12")
+ (extension-version "0.10")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-eval
- (extension-version "0.9.12")
+ (extension-version "0.10")
+ compile-options: '(-X hahn))
+
+(setup-shared-extension-module
+ 'sicp-eval-anal
+ (extension-version "0.10")
  compile-options: '(-X hahn))
 
 (run-hahn -o sicp.wiki

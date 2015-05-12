@@ -1,7 +1,7 @@
 @(heading "sicp-eval-amb")
 
 (module sicp-eval-amb
-  @("The indeterminate backtracking evaluator from section 4.3.3")
+  @("The non-deterministic backtracking evaluator from section 4.3.3")
   (amb-choices
    amb?
    ambeval

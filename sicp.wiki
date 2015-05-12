@@ -859,6 +859,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.10|0.9.10]] : Export procedures.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.11|0.9.11]] : Export make-lambda.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.12|0.9.12]] : Use hahn.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.10|0.10]] : Add the analyzing evaluator.
 ==== Colophon
 
 Documented by [[/egg/hahn|hahn]].

@@ -62,4 +62,16 @@
                       (cons (list '+ +) (primitive-procedures))))
         (anal-eval* '(+ 2 3) (setup-environment))))
 
+(use sicp-eval-lazy)
+
+(with-primitive-procedures `((+ ,+)
+                             (values ,values))
+  (lambda (env)
+    (eval* '(define count 0) env)
+    (eval* '(define (id x) (set! count (+ count 1)) x) env)
+    (eval* '(define w (id (id 10))) env)
+    (test "Id has been called once." 1 (eval* 'count env))
+    (test "W is 10." 10 (eval* '(values w) env))
+    (test "Id has been called twice." 2 (eval* 'count env))))
+
 (test-exit)

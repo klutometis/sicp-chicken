@@ -17,7 +17,8 @@
    thunk-env
    thunk-exp
    thunk-value
-   thunk?)
+   thunk?
+   with-lazy-lists)
   (import chicken scheme)
   (use sicp-eval)
   (include "sicp-eval-lazy-core.scm")) 

@@ -861,6 +861,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.9.12|0.9.12]] : Use hahn.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.10|0.10]] : Add the analyzing evaluator.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.11|0.11]] : Add the lazy evaluator.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12|0.12]] : Add the amb-evaluator.
 ==== Colophon
 
 Documented by [[/egg/hahn|hahn]].

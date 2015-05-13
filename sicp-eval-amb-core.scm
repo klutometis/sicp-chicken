@@ -223,7 +223,7 @@ times or until failure."
            (lambda () failure)))
 
 (define (ambeval* exp env)
-  @("Amb-evaluates the expression until failure, return the last
+  @("Amb-evaluates the expression until failure, returning the last
 success-value; or failure, if it never succeeds."
     (exp "The expression to evaluate")
     (env "The environment to evaluate it in")

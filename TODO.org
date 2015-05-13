@@ -1,4 +1,13 @@
-* TODO Multiple modules for e.g. {un,}ordered sets.
+* TODO =Ambeval= should have a =-ref=, =-fold=, =-map=, =-for-each=.
+  An optional =n= which default to =#f=, in which case: go until
+  failure.
+
+  Or maybe keep the =ambeval-n= and make an =ambeval-fold=? Can
+  implement =map= and =for-each= in terms of fold.
+* DONE Multiple modules for e.g. {un,}ordered sets.
+  CLOSED: [2015-05-12 Tue 21:41]
+  - CLOSING NOTE [2015-05-12 Tue 21:41] \\
+    Done up through 3.3.4; TODO: the earlier stuff.
   We’ve already gotten into a situation with e.g. =adjoin-set= that
   we’ve had to create a =huffman-adjoin-set=.
 

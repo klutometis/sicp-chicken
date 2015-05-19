@@ -222,22 +222,6 @@ times or until failure."
                  (next-alternative)))
            (lambda () failure)))
 
-(define (ambeval* exp env)
-  @("Amb-evaluates the expression until failure, returning the last
-success-value; or failure, if it never succeeds."
-    (exp "The expression to evaluate")
-    (env "The environment to evaluate it in")
-    (@to "object"))
-  (let ((last-value failure))
-    (ambeval exp
-             env
-             (lambda (val next-alternative)
-               (set! last-value val)
-               (next-alternative))
-             (lambda () last-value))))
-
-
-
 (define ambeval-fold
   @("Folds over the results of up to {{n}} successful executions of {{exp}};
 if {{n}} is missing, folds over all successful executions

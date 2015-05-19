@@ -964,20 +964,6 @@ times or until failure.
       (if (zero? n) val (next-alternative)))
     (lambda () failure)))
 </enscript>
-==== {{ambeval*}}
-<procedure>(ambeval* exp env) → object</procedure>
-Amb-evaluates the expression until failure, returning the last
-success-value; or failure, if it never succeeds.
-; {{exp}} : The expression to evaluate
-; {{env}} : The environment to evaluate it in
-<enscript highlight="scheme">(define (ambeval* exp env)
-  (let ((last-value failure))
-    (ambeval
-      exp
-      env
-      (lambda (val next-alternative) (set! last-value val) (next-alternative))
-      (lambda () last-value))))
-</enscript>
 ==== {{ambeval-fold}}
 <procedure>(ambeval-fold exp env cons nil) → list</procedure>
 <procedure>(ambeval-fold exp env cons nil n) → list</procedure>
@@ -1091,6 +1077,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.5|0.1.5]] : Add flatmap.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.6|0.1.6]] : Add `prime?'.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.2|0.2]] : Add picture language.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.2.12|0.2.12]] : Add ambeval-fold, ambeval-map; change ambeval*.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.3|0.3]] : Add the outline-painter.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.4|0.4]] : Add differentation.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.4.1|0.4.1]] : Add images to picture-language.

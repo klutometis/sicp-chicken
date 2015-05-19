@@ -4,8 +4,9 @@
   @("The non-deterministic backtracking evaluator from section 4.3.3")
   (amb-choices
    amb?
-   ambeval
    ambeval*
+   ambeval-fold
+   ambeval-map
    ambeval-n
    analyze
    analyze-amb

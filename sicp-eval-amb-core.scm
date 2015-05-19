@@ -236,6 +236,64 @@ success-value; or failure, if it never succeeds."
                (next-alternative))
              (lambda () last-value))))
 
+
+
+(define ambeval-fold
+  @("Folds over the results of up to {{n}} successful executions of {{exp}};
+if {{n}} is missing, folds over all successful executions
+until failure."
+    (exp "The expression to execute")
+    (env "The environment to execute it in")
+    (cons "The aggregator")
+    (nil "The initial value")
+    (n "The number of results to gather")
+    (@to "list"))
+  (case-lambda
+   ((exp env cons nil) (ambeval-fold exp env cons nil +inf.0))
+   ((exp env cons nil n)
+    (let ((result nil))
+      (ambeval exp
+               env
+               (lambda (val next-alternative)
+                 (set! n (- n 1))
+                 (if (negative? n)
+                     result
+                     (begin
+                       (set! result (cons val result))
+                       (next-alternative))))
+               (lambda () result))))))
+
+(define ambeval-map
+  @("Maps over the results of up to {{n}} successful executions of {{exp}};
+if {{n}} is missing, maps over all successful executions until failure."
+    (exp "The expression to execute")
+    (env "The environment to execute it in")
+    (f "The function to apply to the results")
+    (n "The number of results to gather")
+    (@to "list"))
+  (case-lambda
+   ((exp env f) (ambeval-map exp env f +inf.0))
+   ((exp env f n)
+    (ambeval exp
+             env
+             (lambda (val next-alternative)
+               (set! n (- n 1))
+               (if (negative? n)
+                   '()
+                   (cons val (next-alternative))))
+             (lambda () '())))))
+
+(define ambeval*
+  @("Gathers the results of up to {{n}} successful executions of {{exp}}; 
+if {{n}} is missing, gathers all successful executions until failure."
+    (exp "The expression to execute")
+    (env "The environment to execute it in")
+    (n "The number of results to gather")
+    (@to "list"))
+  (case-lambda
+   ((exp env) (ambeval* exp env +inf.0))
+   ((exp env n) (ambeval-map exp env values n))))
+
 (define (with-require procedures receive-env)
   @("Installs {{require}},{{an-element-of}},{{an-integer-starting-from}} 
 in the environment in addition to the primitive procedures enumerated 

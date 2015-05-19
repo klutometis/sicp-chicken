@@ -908,8 +908,9 @@ have been defined.
 The non-deterministic backtracking evaluator from section 4.3.3
 * [[#amb-choices]]
 * [[#amb?]]
-* [[#ambeval]]
 * [[#ambeval*]]
+* [[#ambeval-fold]]
+* [[#ambeval-map]]
 * [[#ambeval-n]]
 * [[#analyze]]
 * [[#analyze-amb]]
@@ -965,7 +966,7 @@ times or until failure.
 </enscript>
 ==== {{ambeval*}}
 <procedure>(ambeval* exp env) → object</procedure>
-Amb-evaluates the expression until failure, return the last
+Amb-evaluates the expression until failure, returning the last
 success-value; or failure, if it never succeeds.
 ; {{exp}} : The expression to evaluate
 ; {{env}} : The environment to evaluate it in
@@ -976,6 +977,66 @@ success-value; or failure, if it never succeeds.
       env
       (lambda (val next-alternative) (set! last-value val) (next-alternative))
       (lambda () last-value))))
+</enscript>
+==== {{ambeval-fold}}
+<procedure>(ambeval-fold exp env cons nil) → list</procedure>
+<procedure>(ambeval-fold exp env cons nil n) → list</procedure>
+Folds over the results of up to {{n}} successful executions of {{exp}};
+if {{n}} is missing, folds over all successful executions
+until failure.
+; {{exp}} : The expression to execute
+; {{env}} : The environment to execute it in
+; {{cons}} : The aggregator
+; {{nil}} : The initial value
+; {{n}} : The number of results to gather
+<enscript highlight="scheme">(define ambeval-fold
+  (case-lambda
+    ((exp env cons nil) (ambeval-fold exp env cons nil +inf.0))
+    ((exp env cons nil n)
+     (let ((result nil))
+       (ambeval
+         exp
+         env
+         (lambda (val next-alternative)
+           (set! n (- n 1))
+           (if (negative? n)
+             result
+             (begin (set! result (cons val result)) (next-alternative))))
+         (lambda () result))))))
+</enscript>
+==== {{ambeval-map}}
+<procedure>(ambeval-map exp env f) → list</procedure>
+<procedure>(ambeval-map exp env f n) → list</procedure>
+Maps over the results of up to {{n}} successful executions of {{exp}};
+if {{n}} is missing, maps over all successful executions until failure.
+; {{exp}} : The expression to execute
+; {{env}} : The environment to execute it in
+; {{f}} : The function to apply to the results
+; {{n}} : The number of results to gather
+<enscript highlight="scheme">(define ambeval-map
+  (case-lambda
+    ((exp env f) (ambeval-map exp env f +inf.0))
+    ((exp env f n)
+     (ambeval
+       exp
+       env
+       (lambda (val next-alternative)
+         (set! n (- n 1))
+         (if (negative? n) '() (cons val (next-alternative))))
+       (lambda () '())))))
+</enscript>
+==== {{ambeval*}}
+<procedure>(ambeval* exp env) → list</procedure>
+<procedure>(ambeval* exp env n) → list</procedure>
+Gathers the results of up to {{n}} successful executions of {{exp}}; 
+if {{n}} is missing, gathers all successful executions until failure.
+; {{exp}} : The expression to execute
+; {{env}} : The environment to execute it in
+; {{n}} : The number of results to gather
+<enscript highlight="scheme">(define ambeval*
+  (case-lambda
+    ((exp env) (ambeval* exp env +inf.0))
+    ((exp env n) (ambeval-map exp env values n))))
 </enscript>
 ==== {{with-require}}
 <procedure>(with-require procedures receive-env) → object</procedure>

@@ -279,7 +279,7 @@ if {{n}} is missing, gathers all successful executions until failure."
    ((exp env n) (ambeval-map exp env values n))))
 
 (define (with-require procedures receive-env)
-  @("Installs {{require}},{{an-element-of}},{{an-integer-starting-from}} 
+  @("Installs {{require}}, {{an-element-of}}, {{an-integer-starting-from}} 
 in the environment in addition to the primitive procedures enumerated 
 in {{procedures}}; then calls {{receive-env}} with the configured environment."
     (procedures "A key-value list of primitive procedure-names and

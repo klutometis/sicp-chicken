@@ -287,7 +287,8 @@ their definitions")
     (receive-env "A lambda of one value that is called with the prepared
 environment")
     (@to "object"))
-  (with-primitive-procedures (append procedures `((not ,not)))
+  (with-primitive-procedures (append procedures `((member ,member)
+                                                  (not ,not)))
     (lambda (env)
       ;; Interesting that we need an alternative for this if.
       (ambeval* '(define (require p) (if (not p) (amb) 'success)) env)

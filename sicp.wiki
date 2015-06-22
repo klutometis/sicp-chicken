@@ -1029,7 +1029,7 @@ in {{procedures}}; then calls {{receive-env}} with the configured environment.
 ; {{receive-env}} : A lambda of one value that is called with the prepared environment
 <enscript highlight="scheme">(define (with-require procedures receive-env)
   (with-primitive-procedures
-    (append procedures `((not ,not)))
+    (append procedures `((member ,member) (not ,not)))
     (lambda (env)
       (ambeval* '(define (require p) (if (not p) (amb) 'success)) env)
       (ambeval*
@@ -1126,6 +1126,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12|0.12]] : Add the amb-evaluator.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.1|0.12.1]] : Export with-lazy-lists.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.4|0.12.4]] : Add debug to the dependencies.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.5|0.12.5]] : Add `distinct?' to amb-eval.
 ==== Colophon
 
 Documented by [[/egg/hahn|hahn]].

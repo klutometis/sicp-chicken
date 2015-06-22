@@ -3,16 +3,12 @@
 Support for SICP
 [[toc:]]
 === SICP
-SICP is a grab-bag of different procedures from sections 1
-through 3.3.4, before we started modularizing them (starting from
-3.3.5: Constraints).
-
-
 ==== {{sicp}}
 '''[module]''' {{sicp}}
 
-Evaluates {{expressions}} and returns the time required for
-evaluation plus the return values of evaluating {{expressions}}.
+SICP is a grab-bag of different procedures from sections 1
+through 3.3.4, before we started modularizing them (starting from
+3.3.5: Constraints).
 * [[#=number?]]
 * [[#accumulate]]
 * [[#add]]
@@ -1026,7 +1022,7 @@ if {{n}} is missing, gathers all successful executions until failure.
 </enscript>
 ==== {{with-require}}
 <procedure>(with-require procedures receive-env) → object</procedure>
-Installs {{require}},{{an-element-of}},{{an-integer-starting-from}} 
+Installs {{require}}, {{an-element-of}}, {{an-integer-starting-from}} 
 in the environment in addition to the primitive procedures enumerated 
 in {{procedures}}; then calls {{receive-env}} with the configured environment.
 ; {{procedures}} : A key-value list of primitive procedure-names and their definitions
@@ -1045,6 +1041,13 @@ in {{procedures}}; then calls {{receive-env}} with the configured environment.
         '(define (an-integer-starting-from n)
            (amb n (an-integer-starting-from (+ n 1))))
         env)
+      (ambeval*
+        '(define (distinct? items)
+           (cond ((null? items) true)
+                 ((null? (cdr items)) true)
+                 ((member (car items) (cdr items)) false)
+                 (else (distinct? (cdr items)))))
+        env)
       (receive-env env))))
 </enscript>
 === About this egg
@@ -1057,6 +1060,7 @@ in {{procedures}}; then calls {{receive-env}} with the configured environment.
 ==== License
 BSD
 ==== Dependencies
+* [[debug]]
 * [[hahn]]
 * [[htmlprag]]
 * [[matchable]]
@@ -1078,6 +1082,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.1.6|0.1.6]] : Add `prime?'.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.2|0.2]] : Add picture language.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.2.12|0.2.12]] : Add ambeval-fold, ambeval-map; change ambeval*.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.2.13|0.2.13]] : Remove redundant ambeval*.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.3|0.3]] : Add the outline-painter.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.4|0.4]] : Add differentation.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.4.1|0.4.1]] : Add images to picture-language.
@@ -1120,6 +1125,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.11|0.11]] : Add the lazy evaluator.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12|0.12]] : Add the amb-evaluator.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.1|0.12.1]] : Export with-lazy-lists.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.4|0.12.4]] : Add debug to the dependencies.
 ==== Colophon
 
 Documented by [[/egg/hahn|hahn]].

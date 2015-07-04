@@ -1127,6 +1127,7 @@ BSD
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.1|0.12.1]] : Export with-lazy-lists.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.4|0.12.4]] : Add debug to the dependencies.
 ; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.5|0.12.5]] : Add `distinct?' to amb-eval.
+; [[https://github.com/klutometis/sicp-chicken/releases/tag/0.12.6|0.12.6]] : Add member to the list of imported functions.
 ==== Colophon
 
 Documented by [[/egg/hahn|hahn]].

@@ -34,6 +34,7 @@
    let-clauses
    output-prompt
    success?
+   with-natural-language
    with-require)
   (import chicken scheme)
   (use sicp-eval sicp-eval-anal)

@@ -304,3 +304,79 @@ environment")
                 ((member (car items) (cdr items)) false)
                 (else (distinct? (cdr items))))) env)
       (receive-env env))))
+
+(define (with-natural-language procedures receive-env)
+  @("Installs the natural-language primitives from 4.3.2."
+    (procedures "A key-value list of primitive procedure-names and
+their definitions")
+    (receive-env "A lambda of one value that is called with the prepared
+environment")
+    (@to "object"))
+  (with-require (append procedures
+                        `((quote (lambda (x) (quote x)))
+                          (list ,list)
+                          (memq ,memq)))
+  (lambda (env)
+    (ambeval* '(define nouns
+                 '(noun student professor cat class))
+              env)
+    (ambeval* '(define verbs
+                 '(verb studies lectures eats sleeps))
+              env)
+    (ambeval* '(define articles
+                 '(article the a))
+              env)
+    (ambeval* '(define prepositions
+                 '(prep for to in by with))
+              env)
+    (ambeval* '(define (parse-sentence)
+                 (list 'sentence
+                       (parse-noun-phrase)
+                       (parse-verb-phrase)))
+              env)
+    (ambeval* '(define (parse-prepositional-phrase)
+                 (list 'prep-phrase
+                       (parse-word prepositions)
+                       (parse-noun-phrase)))
+              env)
+    (ambeval* '(define (parse-verb-phrase)
+                 (define (maybe-extend verb-phrase)
+                   (amb
+                    verb-phrase
+                    (maybe-extend
+                     (list 'verb-phrase
+                           verb-phrase
+                           (parse-prepositional-phrase)))))
+                 (maybe-extend (parse-word verbs)))
+              env)
+    (ambeval* '(define (parse-simple-noun-phrase)
+                 (list 'simple-noun-phrase
+                       (parse-word articles)
+                       (parse-word nouns)))
+              env)
+    (ambeval* '(define (parse-noun-phrase)
+                 (define (maybe-extend noun-phrase)
+                   (amb
+                    noun-phrase
+                    (maybe-extend
+                     (list 'noun-phrase
+                           noun-phrase
+                           (parse-prepositional-phrase)))))
+                 (maybe-extend (parse-simple-noun-phrase)))
+              env)
+    (ambeval* '(define (parse-word word-list)
+                 (require (not (null? *unparsed*)))
+                 (require (memq (car *unparsed*)
+                                (cdr word-list)))
+                 (let ((found-word (car *unparsed*)))
+                   (set! *unparsed* (cdr *unparsed*))
+                   (list (car word-list) found-word)))
+              env)
+    (ambeval* '(define *unparsed* '()) env)
+    (ambeval* '(define (parse input)
+                 (set! *unparsed* input)
+                 (let ((sent (parse-sentence)))
+                   (require (null? *unparsed*))
+                   sent))
+              env)
+    (receive-env env))))

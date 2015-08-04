@@ -2,42 +2,47 @@
 
 (setup-shared-extension-module
  'sicp
- (extension-version "0.12.7")
+ (extension-version "0.13")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-constraints
- (extension-version "0.12.7")
+ (extension-version "0.13")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-concurrency
- (extension-version "0.12.7")
+ (extension-version "0.13")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-streams
- (extension-version "0.12.7")
+ (extension-version "0.13")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-eval
- (extension-version "0.12.7")
+ (extension-version "0.13")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-eval-anal
- (extension-version "0.12.7")
+ (extension-version "0.13")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-eval-lazy
- (extension-version "0.12.7")
+ (extension-version "0.13")
  compile-options: '(-X hahn))
 
 (setup-shared-extension-module
  'sicp-eval-amb
- (extension-version "0.12.7")
+ (extension-version "0.13")
+ compile-options: '(-X hahn))
+
+(setup-shared-extension-module
+ 'sicp-eval-logic
+ (extension-version "0.13")
  compile-options: '(-X hahn))
 
 (run-hahn -o sicp.wiki
@@ -63,4 +68,6 @@
           sicp-eval-lazy.scm
           sicp-eval-lazy-core.scm
           sicp-eval-amb.scm
-          sicp-eval-amb-core.scm)
+          sicp-eval-amb-core.scm
+          sicp-eval-logic.scm
+          sicp-eval-logic-core.scm)

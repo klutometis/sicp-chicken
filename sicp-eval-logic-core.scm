@@ -87,6 +87,21 @@
 
 (put 'not 'qeval negate)
 
+(define (lisp-value call frame-stream)
+  (stream-flatmap
+   (lambda (frame)
+     (if (execute
+          (instantiate
+           call
+           frame
+           (lambda (v f)
+             (error "Unknown pat var: LISP-VALUE" v))))
+         (singleton-stream frame)
+         the-empty-stream))
+   frame-stream))
+
+(put 'lisp-value 'qeval lisp-value)
+
 (define (execute exp)
   (apply (eval (predicate exp) (interaction-environment))
          (args exp)))
@@ -418,6 +433,7 @@ list (in the absence of {{n}}, {{n}} being assumed to be infinite)")
     (put 'or 'qeval disjoin)
     (put 'not 'qeval negate)
     (put 'always-true 'qeval always-true)
+    (put 'lisp-value 'qeval lisp-value)
     (thunk)))
 
 (define (with-microshaft-database thunk)

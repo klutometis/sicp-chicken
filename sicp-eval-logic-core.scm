@@ -434,6 +434,9 @@ list (in the absence of {{n}}, {{n}} being assumed to be infinite)")
     (put 'not 'qeval negate)
     (put 'always-true 'qeval always-true)
     (put 'lisp-value 'qeval lisp-value)
+    
+    ;; The same-rule comes in handy.
+    (qeval* '(assert! (rule (same ?x ?x))))
     (thunk)))
 
 (define (with-microshaft-database thunk)

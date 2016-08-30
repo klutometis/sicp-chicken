@@ -45,6 +45,11 @@
  (extension-version "0.14")
  compile-options: '(-X hahn))
 
+(setup-shared-extension-module
+ 'sicp-eval-ec
+ (extension-version "0.14")
+ compile-options: '(-X hahn))
+
 (run-hahn -o sicp.wiki
           sicp.scm
           abstract-data.scm
@@ -71,5 +76,5 @@
           sicp-eval-amb-core.scm
           sicp-eval-logic.scm
           sicp-eval-logic-core.scm
-          sicp-machine.scm
-          sicp-machine-core.scm)
+          sicp-eval-ec.scm
+          sicp-eval-ec-core.scm)
